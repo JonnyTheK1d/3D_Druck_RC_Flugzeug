@@ -118,11 +118,11 @@ def steering_collar() -> Part:
     r, h = 5.0, 9.0
     place = g.translation(NOSE_GEAR_X, 0, NOSE_WIRE_Z_TOP - 8.0 + 0.6)      # sitzt direkt auf dem Lager
     body = g.cyl((0, 0, 0), (0, 0, h), r, segs=40)
-    arm = g.box(0, 17.0, -3.0, 3.0, 1.0, 6.0)
+    arm = g.box(0, 17.0, -3.0, 3.0, 0.0, 5.0)                                    # liegt flach auf dem Bett
     body = body + arm
     body = body - g.cyl((0, 0, -1), (0, 0, h + 1), 1.6, segs=24)                  # Drahtbohrung 3,2
     body = body - g.cyl((-6, 0, h / 2), (r + 1, 0, h / 2), 1.25, segs=16)          # Madenschraube
-    body = body - g.cyl((14, -4, 3.5), (14, 4, 3.5), 0.8, segs=16)                 # Anlenkloch
+    body = body - g.cyl((14, 0, 0), (14, 0, 7.0), 0.8, segs=16)                    # Anlenkloch (senkrecht, Z-Bügel)
     return Part("G6_Lenkhebel", "Fahrwerk", body, place, np.eye(4), material="PETG", infill=1.0,
                 note="M3-Madenschraube klemmt auf dem 3-mm-Bugfahrwerksdraht")
 
@@ -215,7 +215,8 @@ def wheel_pant(half_w: float, nose: bool) -> Manifold:
     else:
         m = m - g.cyl((0, -40, 0), (0, 40, 0), 2.2, segs=24)                   # Achse Ø4 (Drahtende)
         d = np.array([0.0, -67.0, 48.5]) / np.linalg.norm([0.0, -67.0, 48.5])  # Richtung Fahrwerksschenkel
-        m = m - g.cyl((0, -6.0, 0), np.array([0, -6.0, 0]) + 30 * d, 2.8, segs=24)
+        y_b = -(WHEEL_W / 2 + 3.0)                                             # Biegung Schenkel -> Achse
+        m = m - g.cyl((0, y_b + 3.0, 0), np.array([0, y_b, 0]) + 30 * d, 2.8, segs=24)
     return m
 
 

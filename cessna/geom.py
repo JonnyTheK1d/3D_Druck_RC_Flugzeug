@@ -255,8 +255,18 @@ def solid_components(tm: trimesh.Trimesh):
     return solids, voids
 
 
+def drop_slivers(m: Manifold, vmin: float = 1.0) -> Manifold:
+    """Entfernt Splitter-Komponenten mit |V| < vmin (z. B. Null-Volumen-Flocken aus Booleschen Operationen)."""
+    comps = m.decompose()
+    if len(comps) <= 1 or all(abs(c.volume()) >= vmin for c in comps):
+        return m
+    out = Manifold.compose([c for c in comps if abs(c.volume()) >= vmin])
+    return out if abs(out.volume() - m.volume()) <= 1e-3 * abs(m.volume()) + vmin else m
+
+
 def drop_floating(m: Manifold) -> Manifold:
     """Behält nur den größten Festkörper (plus eingeschlossene Hohlräume); entfernt schwebende Reste."""
+    m = drop_slivers(m)
     tm = to_trimesh(m)
     solids, voids = solid_components(tm)
     if len(solids) <= 1:

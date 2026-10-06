@@ -10,8 +10,8 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 | `W0_Mittelstueck` | 1 | LW-PLA | 200 · 160 · 24 | 57.5 | 4 Schraubendome für M3, Kabelaustritt unten |
 | `W1_rechts` | 1 | LW-PLA | 200 · 203 · 24 | 54.6 | mit Servoschacht für das Klappenservo |
 | `W1_links` | 1 | LW-PLA | 200 · 203 · 24 | 54.6 | mit Servoschacht für das Klappenservo |
-| `W2_rechts` | 1 | LW-PLA | 200 · 204 · 24 | 52.5 | mit Servoschacht für 9-g-Servo (Querruder) |
-| `W2_links` | 1 | LW-PLA | 200 · 204 · 24 | 52.5 | mit Servoschacht für 9-g-Servo (Querruder) |
+| `W2_rechts` | 1 | LW-PLA | 200 · 204 · 24 | 52.6 | mit Servoschacht für 9-g-Servo (Querruder) |
+| `W2_links` | 1 | LW-PLA | 200 · 204 · 24 | 52.6 | mit Servoschacht für 9-g-Servo (Querruder) |
 | `W3_rechts` | 1 | LW-PLA | 147 · 203 · 20 | 41.6 | mit abgerundetem Randbogen |
 | `W3_links` | 1 | LW-PLA | 147 · 203 · 20 | 41.6 | mit abgerundetem Randbogen |
 
@@ -38,17 +38,18 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 | `H2_Hoehenruder_rechts_unten` | 1 | LW-PLA | 72 · 177 · 5 | 8.0 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
 | `H2_Hoehenruder_links_oben` | 1 | LW-PLA | 72 · 177 · 5 | 8.0 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
 | `H2_Hoehenruder_links_unten` | 1 | LW-PLA | 72 · 177 · 5 | 8.0 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
-| `S1_Seitenflosse_oben` | 1 | LW-PLA | 205 · 175 · 9 | 9.8 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
-| `S1_Seitenflosse_unten` | 1 | LW-PLA | 205 · 175 · 9 | 9.8 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
-| `S2_Seitenruder_oben` | 1 | LW-PLA | 90 · 116 · 7 | 7.8 |  |
-| `S2_Seitenruder_unten` | 1 | LW-PLA | 90 · 116 · 7 | 8.0 |  |
+| `S1_Seitenflosse_oben` | 1 | LW-PLA | 205 · 175 · 9 | 10.3 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
+| `S1_Seitenflosse_unten` | 1 | LW-PLA | 205 · 175 · 9 | 10.3 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
+| `S2_Seitenruder_oben` | 1 | LW-PLA | 82 · 116 · 7 | 6.9 |  |
+| `S2_Seitenruder_unten` | 1 | LW-PLA | 82 · 116 · 7 | 6.9 |  |
+| `S4_Seitenruderhebel` | 1 | PETG | 20 · 10 · 8 | 1.1 | klemmt mit M3-Madenschraube auf der Ø2-Ruderwelle; Zugang durch die Wartungsöffnung links im Heck |
 | `S3_Rueckenflosse` | 1 | LW-PLA | 112 · 28 · 5 | 2.3 | flach drucken; auf den Rumpfrücken (F5) und an die Vorderkante der Seitenflosse kleben |
 
 ## Kleinteile
 
 | Teil | Menge | Material | Größe x·y·z [mm] | Masse [g] | Hinweis |
 |---|---:|---|---|---:|---|
-| `Ruderhorn` | 4 | PETG | 14 · 18 · 2 | 0.3 | je 1x Querruder links/rechts, Höhen- und Seitenruder |
+| `Ruderhorn` | 5 | PETG | 14 · 18 · 2 | 0.3 | je 1x Querruder links/rechts, Landeklappe links/rechts, Höhenruder (links unten) |
 
 ## Rumpf
 
@@ -65,7 +66,7 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 | `F5_Heckkonus_rechts` | 1 | LW-PLA | 183 · 87 · 48 | 15.4 | mit Steckmuffe nach hinten |
 | `F5_Heckkonus_links` | 1 | LW-PLA | 183 · 87 · 48 | 15.4 | mit Steckmuffe nach hinten |
 | `F6_Heck_rechts` | 1 | LW-PLA | 151 · 46 · 24 | 7.3 |  |
-| `F6_Heck_links` | 1 | LW-PLA | 151 · 46 · 24 | 7.3 |  |
+| `F6_Heck_links` | 1 | LW-PLA | 151 · 46 · 24 | 7.1 |  |
 
 ## Antrieb
 

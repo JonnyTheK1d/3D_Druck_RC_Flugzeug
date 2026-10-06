@@ -9,8 +9,8 @@ Alle STL-Dateien liegen in **Druckausrichtung** vor (kein Drehen nötig, Teile l
 <!-- AUTO:material -->
 | Material | Teile | Masse |
 |---|---|---:|
-| **LW-PLA** (schäumend) | Flügel, Querruder, Rumpf (6 Segmente), Leitwerk | ca. 986 g |
-| **PETG** | Motorbock, Spinnerplatte, Fahrwerksklemmen, Bugfahrwerkslager, Gabel, Lenkhebel, Ruderhörner | ca. 71 g |
+| **LW-PLA** (schäumend) | Flügel, Querruder, Rumpf (6 Segmente), Leitwerk | ca. 985 g |
+| **PETG** | Motorbock, Spinnerplatte, Fahrwerksklemmen, Bugfahrwerkslager, Gabel, Lenkhebel, Ruderhörner | ca. 72 g |
 | **PLA** | Spinnerkegel, Radnaben, Streben | ca. 46 g |
 | **TPU 95A** | 3 Reifen | ca. 35 g |
 <!-- /AUTO:material -->

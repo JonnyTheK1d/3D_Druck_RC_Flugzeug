@@ -265,8 +265,11 @@ TAIL_SERVO_X = 538.0                 # Mitte der Heckservos
 TAIL_SERVO_Z = 100.0                 # Höhe des Servobodens
 NOSE_SERVO_X = 190.0
 NOSE_SERVO_Z = 100.0
-ARM_Z = 9.0                          # Höhe der Servohebelebene über dem Boden
-TAIL_ROD_EXIT_X, TAIL_ROD_EXIT_Y, TAIL_ROD_EXIT_Z = 876.0, 17.0, 163.0   # Austritt des Gestänges durch die Heckwand
+SERVO_INSET = 10.0                   # Servomitte innen von der Seitenwand (Wand verjüngt sich nach hinten)
+ARM_Z = 2.4 + SERVO_9G["flange_off"] + 1.0   # Höhe der Servohebelebene über dem Servoboden
+SHAFT_OFF = SERVO_9G["L"] / 2 - 5.9  # Abtriebswelle sitzt nahe einem Servoende (hier: hinten)
+TAIL_ARM_R = 10.0                    # Lochabstand am Servohebel der Heckservos (Kanal ist darauf ausgelegt)
+TAIL_ROD_EXIT_X, TAIL_ROD_EXIT_Y, TAIL_ROD_EXIT_Z = 850.0, 16.0, 160.0   # Knick des Höhenruder-Bowdenzugs (links); Austritt schräg nach außen
 
 
 def inner_half_width(x: float, z: float | None = None) -> float:
@@ -285,7 +288,7 @@ def servo_shelf(sgn: int, x_c: float, z_s: float, depth: float = 26.0) -> tuple[
     y0, y1 = yw + 0.8, yw - depth
     ylo, yhi = (min(sgn * y0, sgn * y1), max(sgn * y0, sgn * y1))
     plate = g.box(x_c - 18.0, x_c + 18.0, ylo, yhi, z_s, z_s + 2.4) ^ body(x_c - 22.0, x_c + 22.0, 0.3)
-    y_c = sgn * (yw - 7.5)
+    y_c = sgn * (yw - SERVO_INSET)
     cut = g.box(x_c - SERVO["L"] / 2 - 0.15, x_c + SERVO["L"] / 2 + 0.15,
                 y_c - SERVO["W"] / 2 - 0.15, y_c + SERVO["W"] / 2 + 0.15, z_s - 1, z_s + 4)
     for sx in (-1, 1):
@@ -300,19 +303,32 @@ def servo_shelf(sgn: int, x_c: float, z_s: float, depth: float = 26.0) -> tuple[
     return plate, (x_c, y_c, z_s + ARM_Z)
 
 
-def rod_tunnel(start, end, r=1.9) -> Manifold:
-    """Kanal für das Gestänge + Austrittsloch durch die Heckwand (Gestänge knickt dort per Z-Bügel ab)."""
+def rod_tunnel(start, end, r=1.9, out_to=None) -> Manifold:
+    """Kanal für das Gestänge (durch die Spanten); mit out_to zusätzlich ein Austrittsloch durch die
+    Rumpfwand, ausgerichtet auf das außen liegende Gestängestück end -> out_to."""
     start, end = np.asarray(start, float), np.asarray(end, float)
     d = (end - start) / np.linalg.norm(end - start)
-    sgn = 1.0 if end[1] > 0 else -1.0
-    exit_hole = g.cyl(end * np.array([1, 0.6, 1]), np.array([end[0], sgn * 30.0, end[2]]), 3.0, segs=24)
-    return g.cyl(start - 3 * d, end + 4 * d, r, segs=20) + exit_hole
+    if out_to is None:
+        return g.cyl(start - 3 * d, end - 6 * d, r, segs=20)
+    do = (np.asarray(out_to, float) - end) / np.linalg.norm(np.asarray(out_to, float) - end)
+    return g.cyl(start - 3 * d, end, r, segs=20) + g.sphere(end, r, 20) + \
+        g.cyl(end - 2 * do, end + 32 * do, r + 0.1, segs=20)
+
+
+def service_opening() -> Manifold:
+    """Wartungsöffnung links im Heck: Madenschraube des Seitenruderhebels und Gabelkopf erreichbar."""
+    c = tail_mod.rudder_axis_at(RUDDER_LEVER_Z + 4.0)
+    caps = [g.cyl((c[0] + dx, -40.0, c[2]), (c[0] + dx, -6.0, c[2]), 6.0, segs=32) for dx in (-2.0, 10.0)]
+    return g.union(caps + [g.box(c[0] - 2.0, c[0] + 10.0, -40.0, -6.0, c[2] - 6.0, c[2] + 6.0)])
 
 
 def tail_rod_lines(sgn: int):
-    """Gestängelinien (Servohebel -> Austritt Heckwand) für Höhen- (links) / Seitenruder (rechts)."""
+    """Gestängelinien: Höhenruder (links) Servohebel -> Austritt Heckwand,
+    Seitenruder (rechts) Servohebel -> Seitenruderhebel im Heck (Gestänge bleibt innen)."""
     yw = inner_half_width(TAIL_SERVO_X, TAIL_SERVO_Z)
-    start = np.array([TAIL_SERVO_X + 4.0, sgn * (yw - 7.5 - 19.0), TAIL_SERVO_Z + ARM_Z])
+    start = np.array([TAIL_SERVO_X + SHAFT_OFF, sgn * (yw - SERVO_INSET - TAIL_ARM_R), TAIL_SERVO_Z + ARM_Z])
+    if sgn > 0:
+        return start, tail_mod.rudder_lever_hole()
     end = np.array([TAIL_ROD_EXIT_X, sgn * TAIL_ROD_EXIT_Y, TAIL_ROD_EXIT_Z])
     return start, end
 
@@ -377,7 +393,7 @@ def build_fuselage() -> list[Part]:
     tunnels = {}
     for sgn in (-1, 1):
         s0, e0 = tail_rod_lines(sgn)
-        tunnels[sgn] = rod_tunnel(s0, e0)
+        tunnels[sgn] = rod_tunnel(s0, e0, out_to=tail_mod.elevator_horn_hole() if sgn < 0 else None)
     for (x0, x1, name) in FUSE_SEGMENTS:
         seg = core ^ g.box(x0, x1, -300, 300, -10, 500)
         if name.startswith("F1"):
@@ -404,6 +420,8 @@ def build_fuselage() -> list[Part]:
                 h = h + (e ^ g.box(x0 - 1, x1 + LIP_LEN + 1, -300, 300, -10, 500))
             if x1 > 400:
                 h = h - tunnels[sgn]
+            if name.startswith("F6") and sgn < 0:
+                h = h - service_opening()
             half[sgn] = h
         right, left = half[+1], half[-1]
         note = "mit Steckmuffe nach hinten" if (x1 < FUSE_LEN - 1 and not name.startswith("F1")) else ""

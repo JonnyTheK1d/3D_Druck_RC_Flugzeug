@@ -154,3 +154,5 @@ def sync_docs(root: str, parts: list[Part], mass: dict, np_: dict, nums: dict):
                 f"| **PLA** | Spinnerkegel, Radnaben, Streben | ca. {by_mat.get('PLA', 0):.0f} g |",
                 f"| **TPU 95A** | 3 Reifen | ca. {by_mat.get('TPU', 0):.0f} g |"]
     _replace_block(pe, "material", "\n".join(mat_rows))
+    from .linkage import doc_rows
+    _replace_block(os.path.join(root, "docs", "FERNSTEUERUNG.md"), "anlenkung", "\n".join(doc_rows()))

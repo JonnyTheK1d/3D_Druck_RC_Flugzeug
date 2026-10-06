@@ -23,8 +23,8 @@ vollständig als **druckbare STL-Dateien** für Drucker ab **220 × 220 mm** Dru
 | Abfluggewicht (Schätzung) | **≈ 1,7 kg** (1,14 kg gedruckt + 0,55 kg Elektronik/Kohlefaser) |
 | Flächenbelastung | ≈ 67 g/dm², Überziehgeschwindigkeit ≈ 9 m/s |
 | Schwerpunkt (Rechenwert) | 60 mm hinter der Flügelvorderkante ≈ **32 % MAC**, Stabilitätsmaß ≈ 13 % MAC |
-| Druckteile | **57 STL-Dateien / 64 Drucke**, größte Grundfläche 205 × 205 mm, höchstes Teil 93 mm |
-| Material | ca. 986 g **LW-PLA**, 71 g PETG, 46 g PLA, 35 g TPU (siehe `docs/DRUCKEINSTELLUNGEN.md`) |
+| Druckteile | **58 STL-Dateien / 66 Drucke**, größte Grundfläche 205 × 205 mm, höchstes Teil 93 mm |
+| Material | ca. 985 g **LW-PLA**, 72 g PETG, 46 g PLA, 35 g TPU (siehe `docs/DRUCKEINSTELLUNGEN.md`) |
 <!-- /AUTO:eckdaten -->
 
 Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu geschrieben).
@@ -45,6 +45,7 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 | `docs/DRUCKEINSTELLUNGEN.md` | Material, Slicer-Einstellungen, Ausrichtung, Nacharbeit |
 | `docs/ZUKAUFTEILE.md` | Elektronik, Kohlefaser, Draht, Schrauben mit Maßen |
 | `docs/BAUANLEITUNG.md` | Zusammenbau, Schwerpunkt, Ruderausschläge, Erstflug |
+| `docs/FERNSTEUERUNG.md` | **Servos, Hebel-Löcher, Gestängelängen, Kanalbelegung, Senderprogrammierung** (aus dem Modell berechnet) |
 | `docs/fahrwerk_biegeschablone.pdf` | Biegeschablone Hauptfahrwerk **1:1** (A4 quer) |
 | `docs/stueckliste.csv`, `docs/kennzahlen.json` | Teileliste (CSV), Kennzahlen |
 | `docs/img/` | Bilder (Ansichten, Explosionszeichnung, Teile-Übersicht) |
@@ -57,16 +58,19 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 ## So geht es los (Kurzfassung)
 
 1. **Material besorgen:** ca. 1 kg LW-PLA (Flügel/Rumpf/Leitwerk), etwas PETG, PLA und TPU → `docs/DRUCKEINSTELLUNGEN.md`.
-2. **Zukaufteile bestellen** → `docs/ZUKAUFTEILE.md` (Kohlefaser-Rohre 10/8 mm in 660 mm, Federstahldraht, 5 Mikroservos, …).
+2. **Zukaufteile bestellen** → `docs/ZUKAUFTEILE.md` (Kohlefaser-Rohre 10/8 mm in 660 mm, Federstahldraht, 7 Mikroservos, …).
 3. **Zuerst `W0_Mittelstueck` drucken und wiegen** (Soll laut `docs/DRUCKLISTE.md`) – damit Flow/Temperatur für LW-PLA richtig stehen.
 4. Alle Teile drucken: STL liegen fertig ausgerichtet vor, **keine Stützen** außer optional unter der Flügelnase.
 5. Zusammenbau nach `docs/BAUANLEITUNG.md` (Flügel → Leitwerk → Rumpf → Antrieb → Fahrwerk → Endmontage).
-6. Schwerpunkt einstellen (58 mm hinter der Flügelvorderkante), Ruder einstellen, **vorsichtig** einfliegen.
+6. Fernsteuerung einbauen und programmieren → `docs/FERNSTEUERUNG.md` (Kanalplan, Gestängelängen, Ausschläge, Failsafe).
+7. Schwerpunkt einstellen (siehe Tabelle oben), Ruder prüfen, **vorsichtig** einfliegen.
 
 ## 3D-Ansicht im Browser
 
 `docs/viewer/index.html` zeigt das komplette Flugzeug interaktiv (Modell: `flugzeug.glb`, für die Seite base64-kodiert in `flugzeug.glb.txt`) (drehen, zoomen, Explosionsansicht, Baugruppen
-ein-/ausblenden, Ruder bewegen). Wegen der Browser-Sicherheit die Seite über einen kleinen Webserver öffnen:
+ein-/ausblenden, Ruder bewegen). Auch die Zukaufteile sind zu sehen: Fahrwerksdrähte, Holm, Motor, Akku, Regler, Empfänger und die
+7 Servos. Servohebel und Gestänge bewegen sich beim Ruderausschlag mit, das Bugrad lenkt mit dem Seitenruder.
+„Rumpf durchsichtig“ zeigt die Anlenkungen im Rumpf. Wegen der Browser-Sicherheit die Seite über einen kleinen Webserver öffnen:
 
 ```bash
 python -m http.server -d docs/viewer 8000   # dann http://localhost:8000 aufrufen
@@ -119,5 +123,6 @@ Teilung (Segmentgrenzen in `FUSE_SEGMENTS`, Abschnittsbreite `WING_PANEL_SPAN`);
 * Profil weicht für den Druck vom Original ab (flache Unterseite hinter 25 % Tiefe); die Nasenunterseite braucht ggf. einen
   kleinen Stützkeil oder Brim.
 * Die Streben sind nur aufgeklebt (kosmetisch). Die Ruderscharniere sind Gewebeband (kein Kugelscharnier).
-* Die Hauptgestänge im Heck laufen in gebohrten Kanälen; die Z-Bügel am Heck sind frei zu biegen.
+* Die Heckgestänge laufen in Kanälen durch die Spanten: Höhenruder als Bowdenzug mit schrägem Austritt links,
+  Seitenruder über eine Ruderwelle in der Scharnierachse und den Hebel `S4` (Gestänge bleibt im Rumpf).
 * Keine Lizenz festgelegt – wenn du das Repository öffentlich machst, lege eine passende Lizenz fest.

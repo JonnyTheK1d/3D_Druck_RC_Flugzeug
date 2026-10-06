@@ -99,6 +99,14 @@ body {
 .ctl output { font-family: var(--f-mono); font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; }
 input[type="range"] { width: 100%; accent-color: var(--signal); }
 .ctl.explode input { accent-color: var(--accent); }
+details.links { margin-top: 10px; }
+details.links summary { cursor: pointer; font-size: 13px; color: var(--muted); }
+details.links summary span { float: right; font-family: var(--f-mono); font-size: 12px; }
+#links { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 12px; }
+#links th, #links td { padding: 4px 4px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+#links th:first-child, #links td:first-child { text-align: left; white-space: normal; }
+#links td { font-family: var(--f-mono); }
+#links th { font-weight: 600; color: var(--muted); }
 .row { display: flex; flex-wrap: wrap; gap: var(--s2); }
 .chip {
   display: inline-flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;
@@ -180,8 +188,9 @@ details summary span { font-family: var(--f-mono); color: var(--muted); letter-s
       <h2>Ruder bewegen <button class="btn" type="button" id="check">Ruder-Check</button></h2>
       <div class="ctl"><label for="r-quer">Quer</label><input type="range" id="r-quer" min="-25" max="25" value="0" step="1"><output id="o-quer" for="r-quer">0°</output></div>
       <div class="ctl"><label for="r-hoehe">Höhe</label><input type="range" id="r-hoehe" min="-25" max="25" value="0" step="1"><output id="o-hoehe" for="r-hoehe">0°</output></div>
-      <div class="ctl"><label for="r-seite">Seite</label><input type="range" id="r-seite" min="-30" max="30" value="0" step="1"><output id="o-seite" for="r-seite">0°</output></div>
+      <div class="ctl"><label for="r-seite">Seite/Bug</label><input type="range" id="r-seite" min="-30" max="30" value="0" step="1"><output id="o-seite" for="r-seite">0°</output></div>
       <div class="ctl"><label for="r-klappe">Klappen</label><input type="range" id="r-klappe" min="0" max="35" value="0" step="1"><output id="o-klappe" for="r-klappe">0°</output></div>
+      <details class="links"><summary>Anlenkungen<span id="links-sum"></span></summary><table id="links"></table></details>
     </section>
 
     <section class="sec">
@@ -221,6 +230,8 @@ const GROUPS = [
   { key: "Fahrwerk", label: "Fahrwerk" },
   { key: "Antrieb", label: "Antrieb" },
   { key: "Streben", label: "Streben" },
+  { key: "Elektronik", label: "Elektronik & Anlenkung" },
+  { key: "Zukauf", label: "Draht, Holm & Motor" },
 ];
 
 /* ---------- Szene ---------- */
@@ -307,6 +318,7 @@ camera.position.set(...VIEWS.iso);
 /* ---------- Modell ---------- */
 const root = new THREE.Group();
 scene.add(root);
+window.viewer = { camera, controls, root };    // für Tests/Fehlersuche
 const items = [];          // { mesh, pivot, meta, mat }
 const byNode = new Map();
 let info = null;
@@ -396,6 +408,7 @@ async function load() {
   cgMarker = cg;
 
   buildPanel();
+  buildLinkages();
   $("loading").hidden = true;
   updatePose();
 }
@@ -413,6 +426,7 @@ function buildPanel() {
     ["Stabilitätsmaß", fmt(n.stabilitaetsmass_prozent_mac, 1) + " % MAC"],
     ["Druckteile", fmt(stlCount) + " STL / " + fmt(n.druckteile_masse_g) + " g"],
     ["Flügelfläche", fmt(n.fluegelflaeche_dm2, 1) + " dm²"],
+    ["Fernsteuerung", "6 Kanäle · " + fmt((info.linkages || []).length) + " Servos"],
   ];
   $("specs").innerHTML = specs.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
   $("subtitle").textContent = `Spannweite ${fmt(info.span)} mm · ${fmt(stlCount)} druckbare Teile · Schwerpunkt ${fmt(n.schwerpunkt_prozent_mac, 0)} % MAC`;
@@ -430,6 +444,7 @@ function buildPanel() {
     lab.innerHTML = `<input type="checkbox" id="${id}" checked><span class="sw"></span>${g.label}`;
     lab.querySelector("input").addEventListener("change", (e) => {
       items.forEach((it) => { if (it.meta.group === g.key) it.pivot.visible = e.target.checked; });
+      updateLinkages();
     });
     gWrap.append(lab);
   }
@@ -481,8 +496,8 @@ function select(it) {
       <dt>Material</dt><dd>${m.material}</dd>
       <dt>Anzahl</dt><dd>${m.qty} ×</dd>
       <dt>Masse</dt><dd>≈ ${fmt(m.mass, 1)} g</dd>
-      <dt>Druckgröße</dt><dd>${m.size.join(" × ")} mm</dd>
-      <dt>STL</dt><dd>${m.name}.stl</dd>
+      <dt>${m.bought ? "Abmessungen" : "Druckgröße"}</dt><dd>${m.size.join(" × ")} mm</dd>
+      <dt>${m.bought ? "Herkunft" : "STL"}</dt><dd>${m.bought ? "Zukaufteil (nicht gedruckt)" : m.name + ".stl"}</dd>
     </dl>
     ${m.note ? `<p class="note">${m.note}</p>` : ""}`;
 }
@@ -511,6 +526,7 @@ function angleFor(h) {
   if (h.kind === "klappe") return h.sign * state.klappe;
   if (h.kind === "hoehe")  return h.sign * -state.hoehe;                              // Ziehen: Hinterkante hoch
   if (h.kind === "seite")  return state.seite;                                         // Rechts: Hinterkante nach rechts
+  if (h.kind === "bugrad") return -state.seite;                                        // Bugrad lenkt mit (Y-Kabel am Seitenruderkanal)
   return 0;
 }
 function updatePose() {
@@ -518,6 +534,93 @@ function updatePose() {
   for (const it of items) {
     it.pivot.position.copy(it.base).addScaledVector(it.explode, k * 1.6);
     if (it.axis) it.pivot.quaternion.setFromAxisAngle(it.axis, deg(angleFor(it.meta.hinge)));
+  }
+  updateLinkages();
+}
+
+/* ---------- Anlenkungen: Servohebel + Gestänge (Gestängelänge bleibt konstant) ---------- */
+const links = [];
+const Y_UP = new THREE.Vector3(0, 1, 0);
+function armEnd(l, phi) { return l.dir.clone().multiplyScalar(l.L.r).applyAxisAngle(l.axis, phi).add(l.pivot); }
+function pathPts(l, phi, horn) { return [armEnd(l, phi), ...l.via, horn]; }
+function pathLen(l, phi, horn) {
+  const p = pathPts(l, phi, horn);
+  let s = 0;
+  for (let i = 0; i + 1 < p.length; i++) s += p[i].distanceTo(p[i + 1]);
+  return s;
+}
+function hornNow(l) {
+  const pv = l.surf.pivot;
+  return l.horn0.clone().sub(l.p0).applyQuaternion(pv.quaternion).add(pv.position);
+}
+function solvePhi(l, horn) {
+  // Servowinkel, bei dem die Gestängelänge wieder stimmt; nächste Lösung zum letzten Winkel
+  const f = (a) => pathLen(l, a, horn) - l.L0;
+  let best = null, a0 = deg(-85), f0 = f(a0);
+  for (let i = 1; i <= 170; i++) {
+    const a1 = deg(-85 + i), f1 = f(a1);
+    if (f0 === 0 || f0 * f1 < 0) {
+      const r = a0 - f0 * (a1 - a0) / (f1 - f0);
+      if (best === null || Math.abs(r - l.phi) < Math.abs(best - l.phi)) best = r;
+    }
+    a0 = a1; f0 = f1;
+  }
+  return best === null ? l.phi : best;
+}
+function buildLinkages() {
+  const armMat = new THREE.MeshStandardMaterial({ color: 0xf4f5f7, roughness: 0.5 });
+  const rodMat = new THREE.MeshStandardMaterial({ color: 0xb8c0c8, roughness: 0.3, metalness: 0.7 });
+  const rodGeo = new THREE.CylinderGeometry(0.9, 0.9, 1, 10);
+  for (const L of info.linkages || []) {
+    const surf = byNode.get(L.surface), servo = byNode.get(L.servo);
+    if (!surf || !servo) continue;
+    const l = { L, surf, servo, pivot: new THREE.Vector3(...L.pivot), axis: new THREE.Vector3(...L.axis).normalize(),
+                dir: new THREE.Vector3(...L.dir).normalize(), via: L.via.map((v) => new THREE.Vector3(...v)),
+                horn0: new THREE.Vector3(...L.horn), phi: deg(L.rest),
+                p0: surf.meta.hinge ? new THREE.Vector3(...surf.meta.hinge.p0) : new THREE.Vector3() };
+    const side = new THREE.Vector3().crossVectors(l.axis, l.dir);
+    l.base = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(l.dir, side, l.axis));
+    l.arm = new THREE.Group();
+    l.arm.position.copy(l.pivot);
+    const len = L.r + 4.5;
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(len, 5, 1.8), armMat);
+    bar.position.set(len / 2 - 2.5, 0, 0);
+    const hub = new THREE.Mesh(new THREE.CylinderGeometry(3.6, 3.6, 3.2, 20), armMat);
+    hub.rotation.x = Math.PI / 2;
+    l.arm.add(bar, hub);
+    l.rods = [];
+    for (let i = 0; i <= l.via.length; i++) {
+      const m = new THREE.Mesh(rodGeo, rodMat);
+      m.castShadow = true;
+      l.rods.push(m);
+      root.add(m);
+    }
+    root.add(l.arm);
+    l.L0 = pathLen(l, l.phi, l.horn0);
+    links.push(l);
+  }
+  const rows = (info.linkages || []).map((L) =>
+    `<tr><td>${L.name}</td><td>${fmt(L.r)} mm</td><td>${fmt(L.rod_len)} mm</td><td>±${fmt(L.max_deflection)}°</td></tr>`).join("");
+  $("links").innerHTML = `<thead><tr><th>Funktion</th><th>Hebel</th><th>Gestänge</th><th>max.</th></tr></thead><tbody>${rows}</tbody>`;
+  $("links-sum").textContent = (info.linkages || []).length + " Servos";
+}
+function updateLinkages() {
+  const show = state.explode === 0;
+  for (const l of links) {
+    const vis = show && l.servo.pivot.visible && l.surf.pivot.visible;
+    l.arm.visible = vis;
+    l.rods.forEach((m) => { m.visible = vis; });
+    if (!vis) continue;
+    const horn = hornNow(l);
+    l.phi = solvePhi(l, horn);
+    l.arm.quaternion.copy(l.base).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), l.phi));
+    const p = pathPts(l, l.phi, horn);
+    l.rods.forEach((m, i) => {
+      const a = p[i], b = p[i + 1], d = b.clone().sub(a), n = d.length();
+      m.position.copy(a).addScaledVector(d, 0.5);
+      m.scale.set(1, n, 1);
+      m.quaternion.setFromUnitVectors(Y_UP, d.divideScalar(n));
+    });
   }
 }
 const sliders = [["quer", "°"], ["hoehe", "°"], ["seite", "°"], ["klappe", "°"], ["explode", " %"]];

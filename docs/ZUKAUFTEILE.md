@@ -20,11 +20,12 @@ Schub/Gewicht ≈ 0,5–0,6.
 
 | Teil | Hinweis | Menge |
 |---|---|---:|
-| Empfänger | mind. 6 Kanäle (Quer, Höhe, Seite, Gas, Klappen; Querruder über Y-Kabel oder 2 Kanäle) | 1 |
+| Empfänger | mind. 6 Kanäle (Quer, Höhe, Gas, Seite+Bugrad, Klappen); **8 Kanäle empfohlen** (jedes Flügelservo und das Bugrad einzeln). Kanalplan: `docs/FERNSTEUERUNG.md` | 1 |
 | Servos 9 g | Mikroservos mit Metallgetriebe für Seite/Höhe empfohlen; **Abmessungen 23 × 12,4 × 22,8 mm, Flansch 32,5 mm** | 7 |
-| Servo-Verlängerung | ca. 300 mm für die Querruder, ca. 150 mm für die Klappen (→ Kabine) | 4 |
-| Y-Kabel | Landeklappen (beide Servos auf einen Kanal; ein Servo ggf. umgedreht montiert/umgepolt per Servo-Reverser) | 1 |
-| Y-Kabel | Bugradlenkung auf dem Seitenruder-Kanal mitführen | 1 |
+| Servo-Verlängerung | ca. 300 mm für Querruder und Heckservos, ca. 150 mm für die Klappen (→ Kabine) | 6 |
+| Y-Kabel | Querruder (bei 6 Kanälen; die Ruder laufen ohne Reverser gegenläufig) | 1 |
+| Y-Kabel + Servo-Reverser | Landeklappen (bei 6 Kanälen; die Klappenservos müssen gegenläufig drehen) | 1 |
+| Y-Kabel | Bugradlenkung auf dem Seitenruder-Kanal (bei 6 Kanälen; ggf. Reverser für die Lenkrichtung) | 1 |
 
 Servo-Verteilung: 2× Querruder und 2× Landeklappe (im Flügel, Abtrieb nach unten), 1× Höhenruder (Rumpf links, Heck),
 1× Seitenruder (Rumpf rechts, Heck), 1× Bugradlenkung (Bug links).
@@ -37,10 +38,12 @@ Servo-Verteilung: 2× Querruder und 2× Landeklappe (im Flügel, Abtrieb nach un
 | CFK-Stab Ø 7,8 mm (oder 8 mm abschleifen) | 200 | 1 | Flächenverbinder in der Mitte |
 | CFK-Stab Ø 4 mm | 395 | 1 | Holm Höhenflosse (durch beide Hälften) |
 | CFK-Stab Ø 2 mm | 370 | 1 | Höhenruder-Verbindung (durch beide Nasen) |
-| CFK-Stab/Stahl Ø 2 mm | je ca. 340 | 2 | Gestänge Höhen-/Seitenruder im Rumpf (ab Servo) |
-| Stahldraht Ø 1,5 mm | je ca. 60 | 4 | Gestänge Querruder und Landeklappen (mit Gabelkopf) |
-| Stahldraht Ø 1,5 mm | je ca. 40 | 2 | Z-Bügel Heck (Austritt Rumpf → Horn) |
-| Stahldraht Ø 1,2 mm | ca. 45 | 1 | Bugradlenkung (Servo → Lenkhebel) |
+| Bowdenzug: Außenrohr Ø 3/2 mm + Stahlseele Ø 1,2 mm | Rohr ca. 330, Seele ca. 400 | 1 | Höhenruder (Kanal links, schräger Austritt am Heck) |
+| CFK-Stab Ø 2 mm | ca. 320 | 1 | Seitenrudergestänge im Rumpf (Servo → Hebel `S4`), Enden: |
+| Stahldraht Ø 1,5 mm | je ca. 40 | 2 | Enden des Seitenrudergestänges (Z-Bügel / Gabelkopf, mit Schrumpfschlauch und Sekundenkleber auf den CFK-Stab) |
+| **Federstahldraht Ø 2 mm** | **95** | 1 | **Ruderwelle Seitenruder** (im Ruder eingeklebt, in der Flosse gelagert) |
+| Stahldraht Ø 1,5 mm | je ca. 80 | 4 | Gestänge Querruder (66 mm) und Landeklappen (68 mm), Z-Bügel + Gabelkopf |
+| Stahldraht Ø 1,2 mm | ca. 75 | 1 | Bugradlenkung (Servo → Lenkhebel, 61 mm, zwei Z-Bügel) |
 | **Federstahldraht Ø 4 mm** | **ca. 390** | 1 | Hauptfahrwerk, nach Biegeschablone `docs/fahrwerk_biegeschablone.pdf` |
 | Federstahldraht Ø 3 mm | ca. 56 | 1 | Bugfahrwerk (gerade, in die Gabel geklebt) |
 | Stahlstab Ø 3 mm | ca. 44 | 1 | Bugrad-Achse (durch Gabel und Radverkleidung) |
@@ -57,9 +60,11 @@ Servo-Verteilung: 2× Querruder und 2× Landeklappe (im Flügel, Abtrieb nach un
 | M2,5 × 10 Blechschraube | 4 | Motorhaube am Brandschott |
 | M2,5 × 10 Blechschraube | 4 | Spinnerkegel an Spinnerplatte |
 | M3 × 12 Blechschraube | 2 | Hauptfahrwerks-Klemme |
-| M3 × 4 Madenschraube | 1 | Lenkhebel auf dem Bugfahrwerksdraht |
-| M2 × 8 Blechschraube | 10 | 5 Servos (je 2) |
-| Gabelköpfe M2 | 7 | Gestänge |
+| M3 × 4 Madenschraube | 2 | Lenkhebel `G6` auf dem Bugfahrwerksdraht, Seitenruderhebel `S4` auf der Ruderwelle |
+| M2 × 8 Blechschraube | 14 | 7 Servos (je 2; im Flügel zusätzlich Heißkleber) |
+| Gabelköpfe M2 + Gewindestück zum Einlöten/Kleben | 6 | Querruder, Klappen, Höhenruder, Seitenruder (Hebel `S4`) |
+| Servohebel (Standard, Löcher 8–14 mm) | 7 | meist beim Servo dabei; fehlendes Loch Ø 1,6 mm nachbohren |
+| Silikonschlauch 3 mm | 10 cm | Gabelköpfe sichern |
 | Scharnierband / transparentes Gewebeband 25 mm | ca. 3 m | Ruderscharniere (beidseitig) |
 | Epoxy 30 min, dünnflüssiger Sekundenkleber + Aktivator | | Verklebung (siehe Bauanleitung) |
 | Klett / Akkugurt | | Akku, Regler, Empfänger |

@@ -42,7 +42,7 @@ def add_servo_box(surf: Surface, solid: Manifold, outer: Manifold, y_s: float, x
     c = surf.chord(y_s)
     z_low = surf._surf_z(x_s, c, False)
     wall = 1.3
-    ix0, ix1 = x_s - sv["L"] / 2 - 0.3, x_s + sv["L"] / 2 + 0.3
+    ix0, ix1 = x_s - sv["L"] / 2 - 1.2, x_s + sv["L"] / 2 + 1.2   # Spiel: Servo folgt der geneigten Unterseite
     iy0, iy1 = y_s - sv["W"] / 2 - 0.3, y_s + sv["W"] / 2 + 0.3
     h_up = sv["H"] - sv["flange_off"] + 1.0          # Körperhöhe über dem Flansch
     outer_box = g.box(ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, z_low - 2.0, z_low + h_up + 1.0) ^ outer

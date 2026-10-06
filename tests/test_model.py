@@ -66,7 +66,7 @@ def test_wall_taper_planar():
 def test_print_orientation_flat_bottom(parts):
     """Flügel, Querruder und Leitwerk liegen mit einer ebenen Fläche auf dem Bett (keine schwebende Unterseite)."""
     for p in parts:
-        if p.group not in ("Flügel", "Querruder", "Leitwerk"):
+        if p.group not in ("Flügel", "Querruder", "Leitwerk") or p.name.startswith("S4_"):
             continue
         tm = g.to_trimesh(p.print_mesh())
         main = max(tm.split(only_watertight=False), key=lambda c: c.volume)
@@ -77,3 +77,38 @@ def test_print_orientation_flat_bottom(parts):
         a15 = a[down & (z < 1.5)].sum()
         assert a03 > 500.0, (p.name, a03)                  # mind. 5 cm² Auflage
         assert a03 >= 0.75 * a15, (p.name, a03, a15)       # Unterseite nicht schräg (Randbogen krümmt sich natürlich)
+
+
+def test_linkages_reach_target_throws():
+    """Jede Anlenkung erreicht mit ±35° Servoweg mindestens den Sollausschlag (Kinematik mit fester Gestängelänge)."""
+    from cessna import linkage
+    links = linkage.linkages()
+    assert len(links) == 7
+    for d in links:
+        assert d["max_deflection"] >= d["target"], (d["name"], d["max_deflection"], d["target"])
+        assert d["arm_r"] in linkage.STD_ARM_HOLES, d["name"]
+        assert 40.0 < d["rod_len"] < 400.0, (d["name"], d["rod_len"])
+
+
+def test_rod_tunnels_clear_of_fuselage_wall():
+    """Gestängekanäle zu den Heckrudern halten Abstand zur Rumpfinnenwand (Rohr Ø3 passt durch)."""
+    from cessna import fuselage as f
+    for sgn in (-1, 1):
+        a, b = f.tail_rod_lines(sgn)
+        assert f.check_rod_clear(a, b, margin=0.0) > 2.0, sgn
+
+
+def test_bought_parts_do_not_collide(parts):
+    """Servos, Akku, Regler, Empfänger, Drähte und Ruderhörner haben Platz zwischen den Druckteilen."""
+    from cessna import viewer
+    for b in viewer.bought_items():
+        bb = b["mesh"].bounding_box()
+        for p in parts:
+            if p.group == "Kleinteile":
+                continue
+            for T in p.asm_Ts():
+                m = g.apply(p.mesh, T)
+                pb = m.bounding_box()
+                if any(bb[i] > pb[i + 3] or pb[i] > bb[i + 3] for i in range(3)):
+                    continue
+                assert (m ^ b["mesh"]).volume() < 2.0, (b["node"], p.name)

@@ -4,8 +4,8 @@ W1_rechts;Flügel;1;LW-PLA;199.8;202.5;23.8;54.6;mit Servoschacht für das Klapp
 W1_links;Flügel;1;LW-PLA;199.8;202.5;23.8;54.6;mit Servoschacht für das Klappenservo
 K1_Landeklappe_rechts;Querruder;1;LW-PLA;64.1;191.3;14.4;30.5;"Landeklappe 0..35° nach unten; Horn-Schlitz an der Unterseite"
 K1_Landeklappe_links;Querruder;1;LW-PLA;64.1;191.3;14.4;30.5;"Landeklappe 0..35° nach unten; Horn-Schlitz an der Unterseite"
-W2_rechts;Flügel;1;LW-PLA;200.0;204.1;24.0;52.5;mit Servoschacht für 9-g-Servo (Querruder)
-W2_links;Flügel;1;LW-PLA;200.0;204.1;24.0;52.5;mit Servoschacht für 9-g-Servo (Querruder)
+W2_rechts;Flügel;1;LW-PLA;200.0;204.1;24.0;52.6;mit Servoschacht für 9-g-Servo (Querruder)
+W2_links;Flügel;1;LW-PLA;200.0;204.1;24.0;52.6;mit Servoschacht für 9-g-Servo (Querruder)
 Q1_Querruder_innen_rechts;Querruder;1;LW-PLA;77.6;154.1;14.0;21.5;"Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben"
 Q1_Querruder_innen_links;Querruder;1;LW-PLA;77.6;154.1;14.0;21.5;"Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben"
 W3_rechts;Flügel;1;LW-PLA;147.0;203.1;20.4;41.6;mit abgerundetem Randbogen
@@ -20,11 +20,12 @@ H2_Hoehenruder_rechts_oben;Leitwerk;1;LW-PLA;72.0;177.1;5.3;8.0;"2-mm-CFK-Stab v
 H2_Hoehenruder_rechts_unten;Leitwerk;1;LW-PLA;72.0;177.1;5.2;8.0;"2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite"
 H2_Hoehenruder_links_oben;Leitwerk;1;LW-PLA;72.0;177.1;5.3;8.0;"2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite"
 H2_Hoehenruder_links_unten;Leitwerk;1;LW-PLA;72.0;177.1;5.2;8.0;"2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite"
-S1_Seitenflosse_oben;Leitwerk;1;LW-PLA;205.0;175.0;9.3;9.8;unterste 15 mm stecken im Heck (Schlitz im Rumpf)
-S1_Seitenflosse_unten;Leitwerk;1;LW-PLA;205.0;175.0;9.3;9.8;unterste 15 mm stecken im Heck (Schlitz im Rumpf)
-S2_Seitenruder_oben;Leitwerk;1;LW-PLA;90.3;116.2;7.1;7.8;
-S2_Seitenruder_unten;Leitwerk;1;LW-PLA;90.3;116.2;7.1;8.0;
-Ruderhorn;Kleinteile;4;PETG;14.0;18.5;1.8;0.3;je 1x Querruder links/rechts, Höhen- und Seitenruder
+S1_Seitenflosse_oben;Leitwerk;1;LW-PLA;205.0;175.0;9.3;10.3;unterste 15 mm stecken im Heck (Schlitz im Rumpf)
+S1_Seitenflosse_unten;Leitwerk;1;LW-PLA;205.0;175.0;9.3;10.3;unterste 15 mm stecken im Heck (Schlitz im Rumpf)
+S2_Seitenruder_oben;Leitwerk;1;LW-PLA;81.8;116.2;6.7;6.9;
+S2_Seitenruder_unten;Leitwerk;1;LW-PLA;81.8;116.2;6.7;6.9;
+S4_Seitenruderhebel;Leitwerk;1;PETG;20.5;10.0;8.0;1.1;"klemmt mit M3-Madenschraube auf der Ø2-Ruderwelle; Zugang durch die Wartungsöffnung links im Heck"
+Ruderhorn;Kleinteile;5;PETG;14.0;18.5;1.8;0.3;je 1x Querruder links/rechts, Landeklappe links/rechts, Höhenruder (links unten)
 F1_Motorhaube_rechts;Rumpf;1;LW-PLA;130.7;123.0;69.7;23.2;
 F1_Motorhaube_links;Rumpf;1;LW-PLA;130.7;123.0;69.7;23.2;
 F2_Bug_rechts;Rumpf;1;LW-PLA;194.9;174.0;75.0;54.3;mit Steckmuffe nach hinten
@@ -36,7 +37,7 @@ F4_Rumpfmitte_links;Rumpf;1;LW-PLA;177.6;174.0;74.0;29.0;mit Steckmuffe nach hin
 F5_Heckkonus_rechts;Rumpf;1;LW-PLA;183.0;86.8;48.5;15.4;mit Steckmuffe nach hinten
 F5_Heckkonus_links;Rumpf;1;LW-PLA;183.0;86.8;48.5;15.4;mit Steckmuffe nach hinten
 F6_Heck_rechts;Rumpf;1;LW-PLA;151.4;45.7;23.9;7.3;
-F6_Heck_links;Rumpf;1;LW-PLA;151.4;45.7;23.9;7.3;
+F6_Heck_links;Rumpf;1;LW-PLA;151.4;45.7;23.9;7.1;
 S3_Rueckenflosse;Leitwerk;1;LW-PLA;111.6;28.3;5.0;2.3;"flach drucken; auf den Rumpfrücken (F5) und an die Vorderkante der Seitenflosse kleben"
 P1_Motorbock;Antrieb;1;PETG;52.0;52.0;93.0;15.3;"Motor vorn mit 4x M3 anschrauben, hinten mit 4x M3 an den Brandschott; Hitze -> PETG"
 P2_Spinner;Antrieb;1;PLA;48.2;48.2;45.0;9.7;"offene Seite nach unten drucken; 4x M2.5x10 Blechschrauben in die Domen"

@@ -40,7 +40,7 @@
 70.0,
 -45.0
 ],
-"tris": 5404
+"tris": 5406
 },
 {
 "node": "W1_links",
@@ -61,7 +61,7 @@
 70.0,
 45.0
 ],
-"tris": 5404
+"tris": 5406
 },
 {
 "node": "K1_Landeklappe_rechts",
@@ -140,7 +140,7 @@
 "color": "#3f7cc0",
 "material": "LW-PLA",
 "qty": 1,
-"mass": 52.5,
+"mass": 52.6,
 "size": [
 200,
 204,
@@ -152,7 +152,7 @@
 70.0,
 -90.0
 ],
-"tris": 6238
+"tris": 6230
 },
 {
 "node": "W2_links",
@@ -161,7 +161,7 @@
 "color": "#3f7cc0",
 "material": "LW-PLA",
 "qty": 1,
-"mass": 52.5,
+"mass": 52.6,
 "size": [
 200,
 204,
@@ -173,7 +173,7 @@
 70.0,
 90.0
 ],
-"tris": 6240
+"tris": 6232
 },
 {
 "node": "Q1_Querruder_innen_rechts",
@@ -460,7 +460,7 @@
 70.0,
 -45.0
 ],
-"tris": 968,
+"tris": 966,
 "hinge": {
 "kind": "hoehe",
 "sign": 1,
@@ -495,7 +495,7 @@
 40.0,
 -45.0
 ],
-"tris": 998,
+"tris": 1006,
 "hinge": {
 "kind": "hoehe",
 "sign": 1,
@@ -530,7 +530,7 @@
 70.0,
 45.0
 ],
-"tris": 972,
+"tris": 970,
 "hinge": {
 "kind": "hoehe",
 "sign": -1,
@@ -565,7 +565,7 @@
 40.0,
 45.0
 ],
-"tris": 998,
+"tris": 1006,
 "hinge": {
 "kind": "hoehe",
 "sign": -1,
@@ -588,7 +588,7 @@
 "color": "#3f7cc0",
 "material": "LW-PLA",
 "qty": 1,
-"mass": 9.8,
+"mass": 10.3,
 "size": [
 205,
 175,
@@ -600,7 +600,7 @@
 0.0,
 40.0
 ],
-"tris": 4528
+"tris": 4724
 },
 {
 "node": "S1_Seitenflosse_unten",
@@ -609,7 +609,7 @@
 "color": "#3f7cc0",
 "material": "LW-PLA",
 "qty": 1,
-"mass": 9.8,
+"mass": 10.3,
 "size": [
 205,
 175,
@@ -621,7 +621,7 @@
 0.0,
 -40.0
 ],
-"tris": 4500
+"tris": 4628
 },
 {
 "node": "S2_Seitenruder_oben",
@@ -630,9 +630,9 @@
 "color": "#e8a33d",
 "material": "LW-PLA",
 "qty": 1,
-"mass": 7.8,
+"mass": 6.9,
 "size": [
-90,
+82,
 116,
 7
 ],
@@ -642,17 +642,17 @@
 0.0,
 40.0
 ],
-"tris": 612,
+"tris": 1348,
 "hinge": {
 "kind": "seite",
 "sign": 1,
 "p0": [
-891.9085714285715,
+899.9085714285715,
 196.0,
 -1.8982025386783976e-15
 ],
 "p1": [
-918.4285714285714,
+926.4285714285714,
 315.0,
 -9.184850993605149e-15
 ]
@@ -665,9 +665,9 @@
 "color": "#e8a33d",
 "material": "LW-PLA",
 "qty": 1,
-"mass": 8.0,
+"mass": 6.9,
 "size": [
-90,
+82,
 116,
 7
 ],
@@ -677,17 +677,52 @@
 0.0,
 -40.0
 ],
-"tris": 1514,
+"tris": 1396,
 "hinge": {
 "kind": "seite",
 "sign": 1,
 "p0": [
-891.9085714285715,
+899.9085714285715,
 196.0,
 -1.8982025386783976e-15
 ],
 "p1": [
-918.4285714285714,
+926.4285714285714,
+315.0,
+-9.184850993605149e-15
+]
+}
+},
+{
+"node": "S4_Seitenruderhebel",
+"name": "S4_Seitenruderhebel",
+"group": "Leitwerk",
+"color": "#e8a33d",
+"material": "PETG",
+"qty": 1,
+"mass": 1.1,
+"size": [
+20,
+10,
+8
+],
+"note": "klemmt mit M3-Madenschraube auf der Ø2-Ruderwelle; Zugang durch die Wartungsöffnung links im Heck",
+"explode": [
+0.0,
+0.0,
+0.0
+],
+"tris": 460,
+"hinge": {
+"kind": "seite",
+"sign": 1,
+"p0": [
+899.9085714285715,
+196.0,
+-1.8982025386783976e-15
+],
+"p1": [
+926.4285714285714,
 315.0,
 -9.184850993605149e-15
 ]
@@ -775,7 +810,7 @@
 0.0,
 55.0
 ],
-"tris": 3566
+"tris": 3564
 },
 {
 "node": "F3_Kabine_rechts",
@@ -838,7 +873,7 @@
 0.0,
 -55.0
 ],
-"tris": 3144
+"tris": 3136
 },
 {
 "node": "F4_Rumpfmitte_links",
@@ -859,7 +894,7 @@
 0.0,
 55.0
 ],
-"tris": 3140
+"tris": 3136
 },
 {
 "node": "F5_Heckkonus_rechts",
@@ -880,7 +915,7 @@
 0.0,
 -55.0
 ],
-"tris": 3518
+"tris": 3576
 },
 {
 "node": "F5_Heckkonus_links",
@@ -901,7 +936,7 @@
 0.0,
 55.0
 ],
-"tris": 3510
+"tris": 3444
 },
 {
 "node": "F6_Heck_rechts",
@@ -922,7 +957,7 @@
 0.0,
 -55.0
 ],
-"tris": 2126
+"tris": 2000
 },
 {
 "node": "F6_Heck_links",
@@ -931,7 +966,7 @@
 "color": "#e4e7ec",
 "material": "LW-PLA",
 "qty": 1,
-"mass": 7.3,
+"mass": 7.1,
 "size": [
 151,
 46,
@@ -943,7 +978,7 @@
 0.0,
 55.0
 ],
-"tris": 2126
+"tris": 2222
 },
 {
 "node": "S3_Rueckenflosse",
@@ -1090,7 +1125,21 @@
 -55.0,
 0.0
 ],
-"tris": 4940
+"tris": 4940,
+"hinge": {
+"kind": "bugrad",
+"sign": 1,
+"p0": [
+150.0,
+0.0,
+0.0
+],
+"p1": [
+150.0,
+200.0,
+0.0
+]
+}
 },
 {
 "node": "G2_Radnabe#1",
@@ -1153,7 +1202,21 @@
 -55.0,
 0.0
 ],
-"tris": 2216
+"tris": 2216,
+"hinge": {
+"kind": "bugrad",
+"sign": 1,
+"p0": [
+150.0,
+0.0,
+0.0
+],
+"p1": [
+150.0,
+200.0,
+0.0
+]
+}
 },
 {
 "node": "G3_Hauptfahrwerk_Klemme_unten",
@@ -1237,7 +1300,21 @@
 -55.0,
 0.0
 ],
-"tris": 552
+"tris": 534,
+"hinge": {
+"kind": "bugrad",
+"sign": 1,
+"p0": [
+150.0,
+0.0,
+0.0
+],
+"p1": [
+150.0,
+200.0,
+0.0
+]
+}
 },
 {
 "node": "G7_Bugradgabel",
@@ -1258,7 +1335,21 @@
 -55.0,
 0.0
 ],
-"tris": 344
+"tris": 344,
+"hinge": {
+"kind": "bugrad",
+"sign": 1,
+"p0": [
+150.0,
+0.0,
+0.0
+],
+"p1": [
+150.0,
+200.0,
+0.0
+]
+}
 },
 {
 "node": "G8_Radverkleidung_rechts_aussen",
@@ -1300,7 +1391,7 @@
 -55.0,
 -30.0
 ],
-"tris": 3416
+"tris": 3350
 },
 {
 "node": "G8_Radverkleidung_links_aussen",
@@ -1342,7 +1433,7 @@
 -55.0,
 30.0
 ],
-"tris": 3418
+"tris": 3352
 },
 {
 "node": "G9_Radverkleidung_Bug_rechts",
@@ -1363,7 +1454,21 @@
 -55.0,
 -25.0
 ],
-"tris": 3186
+"tris": 3186,
+"hinge": {
+"kind": "bugrad",
+"sign": 1,
+"p0": [
+150.0,
+0.0,
+0.0
+],
+"p1": [
+150.0,
+200.0,
+0.0
+]
+}
 },
 {
 "node": "G9_Radverkleidung_Bug_links",
@@ -1384,7 +1489,21 @@
 -55.0,
 25.0
 ],
-"tris": 3202
+"tris": 3202,
+"hinge": {
+"kind": "bugrad",
+"sign": 1,
+"p0": [
+150.0,
+0.0,
+0.0
+],
+"p1": [
+150.0,
+200.0,
+0.0
+]
+}
 },
 {
 "node": "Z1_Strebe_rechts",
@@ -1427,6 +1546,602 @@
 70.0
 ],
 "tris": 132
+},
+{
+"node": "Z_Hauptfahrwerksdraht",
+"name": "Hauptfahrwerksdraht",
+"group": "Zukauf",
+"color": "#a3abb5",
+"material": "Zukauf",
+"qty": 1,
+"mass": 30.0,
+"size": [
+4,
+352,
+52
+],
+"note": "Federstahl Ø4 mm, nach Biegeschablone (fahrwerk_biegeschablone.pdf); Achsenden tragen die Räder",
+"explode": [
+0.0,
+-55.0,
+0.0
+],
+"tris": 518,
+"bought": true
+},
+{
+"node": "Z_Bugfahrwerksdraht",
+"name": "Bugfahrwerksdraht",
+"group": "Zukauf",
+"color": "#a3abb5",
+"material": "Zukauf",
+"qty": 1,
+"mass": 4.0,
+"size": [
+3,
+3,
+54
+],
+"note": "Federstahl Ø3 mm; steckt in G7, läuft durch das Lager G5, oben klemmt der Lenkhebel G6",
+"explode": [
+0.0,
+-55.0,
+0.0
+],
+"tris": 60,
+"bought": true,
+"hinge": {
+"kind": "bugrad",
+"sign": 1,
+"p0": [
+150.0,
+0.0,
+0.0
+],
+"p1": [
+150.0,
+200.0,
+0.0
+]
+}
+},
+{
+"node": "Z_Bugradachse",
+"name": "Bugradachse",
+"group": "Zukauf",
+"color": "#a3abb5",
+"material": "Zukauf",
+"qty": 1,
+"mass": 2.0,
+"size": [
+3,
+42,
+3
+],
+"note": "Stahlstab Ø3 mm, 42 mm, durch Gabel und Verkleidung",
+"explode": [
+0.0,
+-55.0,
+0.0
+],
+"tris": 60,
+"bought": true,
+"hinge": {
+"kind": "bugrad",
+"sign": 1,
+"p0": [
+150.0,
+0.0,
+0.0
+],
+"p1": [
+150.0,
+200.0,
+0.0
+]
+}
+},
+{
+"node": "Z_Ruderwelle",
+"name": "Ruderwelle Seitenruder",
+"group": "Zukauf",
+"color": "#a3abb5",
+"material": "Zukauf",
+"qty": 1,
+"mass": 2.5,
+"size": [
+22,
+2,
+92
+],
+"note": "Federstahl Ø2 mm, 94 mm: im Seitenruder eingeklebt, in der Flosse gelagert, unten klemmt der Hebel S4",
+"explode": [
+60.0,
+0.0,
+0.0
+],
+"tris": 60,
+"bought": true,
+"hinge": {
+"kind": "seite",
+"sign": 1,
+"p0": [
+899.9085714285715,
+196.0,
+-1.8982025386783976e-15
+],
+"p1": [
+926.4285714285714,
+315.0,
+-9.184850993605149e-15
+]
+}
+},
+{
+"node": "Z_Holm",
+"name": "CFK-Holm",
+"group": "Zukauf",
+"color": "#2a2c30",
+"material": "Zukauf",
+"qty": 1,
+"mass": 75.0,
+"size": [
+10,
+1315,
+10
+],
+"note": "2 × CFK-Rohr 10/8 mm + Verbinder 8 mm im Mittelstück",
+"explode": [
+0.0,
+70.0,
+0.0
+],
+"tris": 92,
+"bought": true
+},
+{
+"node": "Z_Motor",
+"name": "Motor",
+"group": "Zukauf",
+"color": "#7d8590",
+"material": "Zukauf",
+"qty": 1,
+"mass": 75.0,
+"size": [
+44,
+28,
+28
+],
+"note": "Außenläufer 2826/2830, ca. 1000 kV",
+"explode": [
+-60.0,
+0.0,
+0.0
+],
+"tris": 252,
+"bought": true
+},
+{
+"node": "Z_Luftschraube",
+"name": "Luftschraube",
+"group": "Zukauf",
+"color": "#2b2b2b",
+"material": "Zukauf",
+"qty": 1,
+"mass": 14.0,
+"size": [
+10,
+21,
+254
+],
+"note": "10×6\" (APC-E o. ä.)",
+"explode": [
+-100.0,
+0.0,
+0.0
+],
+"tris": 252,
+"bought": true
+},
+{
+"node": "Z_Akku",
+"name": "Akku",
+"group": "Elektronik",
+"color": "#d9a21b",
+"material": "Zukauf",
+"qty": 1,
+"mass": 190.0,
+"size": [
+115,
+35,
+26
+],
+"note": "LiPo 3S 2200 mAh (115 × 35 × 26 mm), mit Klett auf dem Rumpfboden; verschieben zum Schwerpunkt-Einstellen",
+"explode": [
+0.0,
+0.0,
+0.0
+],
+"tris": 12,
+"bought": true
+},
+{
+"node": "Z_Regler",
+"name": "Regler",
+"group": "Elektronik",
+"color": "#5b6b8c",
+"material": "Zukauf",
+"qty": 1,
+"mass": 30.0,
+"size": [
+50,
+26,
+10
+],
+"note": "Brushless-Regler 30 A mit BEC, unter dem Motorbock (Kühlluft vom Lufteinlass)",
+"explode": [
+-60.0,
+0.0,
+0.0
+],
+"tris": 12,
+"bought": true
+},
+{
+"node": "Z_Empfaenger",
+"name": "Empfänger",
+"group": "Elektronik",
+"color": "#2e7d4f",
+"material": "Zukauf",
+"qty": 1,
+"mass": 8.0,
+"size": [
+40,
+10,
+24
+],
+"note": "Empfänger ≥ 6 Kanäle, mit Klett an die rechte Seitenwand; Antennen 90° zueinander",
+"explode": [
+0.0,
+0.0,
+0.0
+],
+"tris": 12,
+"bought": true
+},
+{
+"node": "Z_Servo_Querruder_rechts",
+"name": "Servo Querruder rechts",
+"group": "Elektronik",
+"color": "#2f4a7a",
+"material": "Zukauf",
+"qty": 1,
+"mass": 9.0,
+"size": [
+33,
+12,
+26
+],
+"note": "9-g-Servo; Hebel-Loch 8 mm; Gestänge: Stahldraht Ø1,5 mm mit Z-Bügel am Servo und Gabelkopf am Horn",
+"explode": [
+0.0,
+70.0,
+-90.0
+],
+"tris": 124,
+"bought": true
+},
+{
+"node": "Z_Servo_Landeklappe_rechts",
+"name": "Servo Landeklappe rechts",
+"group": "Elektronik",
+"color": "#2f4a7a",
+"material": "Zukauf",
+"qty": 1,
+"mass": 9.0,
+"size": [
+33,
+12,
+26
+],
+"note": "9-g-Servo; Hebel-Loch 10 mm; Gestänge: Stahldraht Ø1,5 mm mit Z-Bügel am Servo und Gabelkopf am Horn",
+"explode": [
+0.0,
+70.0,
+-45.0
+],
+"tris": 124,
+"bought": true
+},
+{
+"node": "Z_Servo_Querruder_links",
+"name": "Servo Querruder links",
+"group": "Elektronik",
+"color": "#2f4a7a",
+"material": "Zukauf",
+"qty": 1,
+"mass": 9.0,
+"size": [
+33,
+12,
+26
+],
+"note": "9-g-Servo; Hebel-Loch 8 mm; Gestänge: Stahldraht Ø1,5 mm mit Z-Bügel am Servo und Gabelkopf am Horn",
+"explode": [
+0.0,
+70.0,
+90.0
+],
+"tris": 124,
+"bought": true
+},
+{
+"node": "Z_Servo_Landeklappe_links",
+"name": "Servo Landeklappe links",
+"group": "Elektronik",
+"color": "#2f4a7a",
+"material": "Zukauf",
+"qty": 1,
+"mass": 9.0,
+"size": [
+33,
+12,
+26
+],
+"note": "9-g-Servo; Hebel-Loch 10 mm; Gestänge: Stahldraht Ø1,5 mm mit Z-Bügel am Servo und Gabelkopf am Horn",
+"explode": [
+0.0,
+70.0,
+45.0
+],
+"tris": 124,
+"bought": true
+},
+{
+"node": "Z_Servo_Höhenruder",
+"name": "Servo Höhenruder",
+"group": "Elektronik",
+"color": "#2f4a7a",
+"material": "Zukauf",
+"qty": 1,
+"mass": 9.0,
+"size": [
+32,
+12,
+26
+],
+"note": "9-g-Servo; Hebel-Loch 10 mm; Gestänge: Bowdenzug: Außenrohr Ø3/2 mm im Kanal bis ins Austrittsloch, Stahlseele Ø1,2 mm; Z-Bügel am Servo, Gabelkopf am Horn",
+"explode": [
+145.0,
+0.0,
+55.0
+],
+"tris": 124,
+"bought": true
+},
+{
+"node": "Z_Servo_Seitenruder",
+"name": "Servo Seitenruder",
+"group": "Elektronik",
+"color": "#2f4a7a",
+"material": "Zukauf",
+"qty": 1,
+"mass": 9.0,
+"size": [
+32,
+12,
+26
+],
+"note": "9-g-Servo; Hebel-Loch 10 mm; Gestänge: CFK-Stab Ø2 mm im Kanal, Enden Stahldraht Ø1,5 mm (Z-Bügel am Servo, Gabelkopf am Hebel)",
+"explode": [
+145.0,
+0.0,
+-55.0
+],
+"tris": 124,
+"bought": true
+},
+{
+"node": "Z_Servo_Bugrad",
+"name": "Servo Bugrad",
+"group": "Elektronik",
+"color": "#2f4a7a",
+"material": "Zukauf",
+"qty": 1,
+"mass": 9.0,
+"size": [
+32,
+12,
+26
+],
+"note": "9-g-Servo; Hebel-Loch 14 mm; Gestänge: Stahldraht Ø1,2 mm mit Z-Bügeln",
+"explode": [
+35.0,
+0.0,
+55.0
+],
+"tris": 124,
+"bought": true
+},
+{
+"node": "Z_Ruderhorn#1",
+"name": "Ruderhorn",
+"group": "Elektronik",
+"color": "#f4f5f7",
+"material": "Zukauf",
+"qty": 1,
+"mass": 0.5,
+"size": [
+14,
+2,
+19
+],
+"note": "gedruckt (PETG), in den Schlitz der Steuerfläche geklebt",
+"explode": [
+45.0,
+70.0,
+-90.0
+],
+"tris": 122,
+"bought": true,
+"hinge": {
+"kind": "quer",
+"sign": 1,
+"p0": [
+435.7101855956615,
+239.98405508627624,
+-330.0
+],
+"p1": [
+418.42720725215383,
+240.20039000918635,
+-485.0
+]
+}
+},
+{
+"node": "Z_Ruderhorn#2",
+"name": "Ruderhorn",
+"group": "Elektronik",
+"color": "#f4f5f7",
+"material": "Zukauf",
+"qty": 1,
+"mass": 0.5,
+"size": [
+14,
+2,
+19
+],
+"note": "gedruckt (PETG), in den Schlitz der Steuerfläche geklebt",
+"explode": [
+45.0,
+70.0,
+90.0
+],
+"tris": 122,
+"bought": true,
+"hinge": {
+"kind": "quer",
+"sign": -1,
+"p0": [
+435.7101855956615,
+239.98405508627624,
+330.0
+],
+"p1": [
+418.42720725215383,
+240.20039000918635,
+485.0
+]
+}
+},
+{
+"node": "Z_Ruderhorn#3",
+"name": "Ruderhorn",
+"group": "Elektronik",
+"color": "#f4f5f7",
+"material": "Zukauf",
+"qty": 1,
+"mass": 0.5,
+"size": [
+14,
+2,
+19
+],
+"note": "gedruckt (PETG), in den Schlitz der Steuerfläche geklebt",
+"explode": [
+45.0,
+70.0,
+-45.0
+],
+"tris": 122,
+"bought": true,
+"hinge": {
+"kind": "klappe",
+"sign": 1,
+"p0": [
+439.0552781782759,
+239.9421838108743,
+-84.0
+],
+"p1": [
+439.0552781782759,
+239.9421838108743,
+-278.5
+]
+}
+},
+{
+"node": "Z_Ruderhorn#4",
+"name": "Ruderhorn",
+"group": "Elektronik",
+"color": "#f4f5f7",
+"material": "Zukauf",
+"qty": 1,
+"mass": 0.5,
+"size": [
+14,
+2,
+19
+],
+"note": "gedruckt (PETG), in den Schlitz der Steuerfläche geklebt",
+"explode": [
+45.0,
+70.0,
+45.0
+],
+"tris": 122,
+"bought": true,
+"hinge": {
+"kind": "klappe",
+"sign": -1,
+"p0": [
+439.0552781782759,
+239.9421838108743,
+84.0
+],
+"p1": [
+439.0552781782759,
+239.9421838108743,
+278.5
+]
+}
+},
+{
+"node": "Z_Ruderhorn#5",
+"name": "Ruderhorn",
+"group": "Elektronik",
+"color": "#f4f5f7",
+"material": "Zukauf",
+"qty": 1,
+"mass": 0.5,
+"size": [
+14,
+2,
+18
+],
+"note": "gedruckt (PETG), in den Schlitz der Steuerfläche geklebt",
+"explode": [
+40.0,
+40.0,
+45.0
+],
+"tris": 112,
+"bought": true,
+"hinge": {
+"kind": "hoehe",
+"sign": -1,
+"p0": [
+892.4494117647059,
+187.0,
+6.5
+],
+"p1": [
+877.3294117647059,
+187.0,
+185.0
+]
+}
 }
 ],
 "bounds": [
@@ -1442,12 +2157,12 @@
 ]
 ],
 "cg": [
-354.8812161386998,
+354.9118645791374,
 220.0,
 0.0
 ],
 "numbers": {
-"teile": 57,
+"teile": 58,
 "druckteile_masse_g": 1136,
 "zukauf_masse_g": 545,
 "gesamtmasse_g": 1681,
@@ -1466,6 +2181,231 @@
 },
 "span": 1375.0,
 "length": 1029.0,
-"stl_count": 57,
-"prints": 64
+"stl_count": 58,
+"prints": 66,
+"linkages": [
+{
+"name": "Querruder rechts",
+"kind": "quer",
+"surface": "Q1_Querruder_innen_rechts",
+"servo": "Z_Servo_Querruder_rechts",
+"pivot": [
+380.59522866281714,
+224.07214056463306,
+-352.0
+],
+"axis": [
+0.016521894002630627,
+-0.9998635041937304,
+0.0
+],
+"dir": [
+0.0,
+0.0,
+-1.0
+],
+"r": 8.0,
+"rest": 0.0,
+"horn": [
+444.779302884426,
+224.76558204079598,
+-374.0
+],
+"via": [],
+"rod_len": 65.7,
+"max_deflection": 16.4
+},
+{
+"name": "Landeklappe rechts",
+"kind": "klappe",
+"surface": "K1_Landeklappe_rechts",
+"servo": "Z_Servo_Landeklappe_rechts",
+"pivot": [
+380.5797138444441,
+223.62785429606419,
+-150.0
+],
+"axis": [
+0.016521894002630544,
+-0.9998635041937304,
+0.0
+],
+"dir": [
+0.0,
+0.0,
+-1.0
+],
+"r": 10.0,
+"rest": 35.0,
+"horn": [
+453.01682526587535,
+224.26981138899032,
+-172.0
+],
+"via": [],
+"rod_len": 68.1,
+"max_deflection": 35.3
+},
+{
+"name": "Querruder links",
+"kind": "quer",
+"surface": "Q1_Querruder_innen_links",
+"servo": "Z_Servo_Querruder_links",
+"pivot": [
+380.59522866281714,
+224.07214056463306,
+352.0
+],
+"axis": [
+0.016521894002630627,
+-0.9998635041937304,
+0.0
+],
+"dir": [
+0.0,
+0.0,
+1.0
+],
+"r": 8.0,
+"rest": 0.0,
+"horn": [
+444.779302884426,
+224.76558204079598,
+374.0
+],
+"via": [],
+"rod_len": 65.7,
+"max_deflection": 16.4
+},
+{
+"name": "Landeklappe links",
+"kind": "klappe",
+"surface": "K1_Landeklappe_links",
+"servo": "Z_Servo_Landeklappe_links",
+"pivot": [
+380.5797138444441,
+223.62785429606419,
+150.0
+],
+"axis": [
+0.016521894002630544,
+-0.9998635041937304,
+0.0
+],
+"dir": [
+0.0,
+0.0,
+1.0
+],
+"r": 10.0,
+"rest": -35.0,
+"horn": [
+453.01682526587535,
+224.26981138899032,
+172.0
+],
+"via": [],
+"rod_len": 68.1,
+"max_deflection": 35.3
+},
+{
+"name": "Höhenruder",
+"kind": "hoehe",
+"surface": "H2_Hoehenruder_links_unten",
+"servo": "Z_Servo_Höhenruder",
+"pivot": [
+543.7,
+109.4,
+57.62500000079653
+],
+"axis": [
+0.0,
+1.0,
+0.0
+],
+"dir": [
+0.0,
+0.0,
+-1.0
+],
+"r": 10.0,
+"rest": 0.0,
+"horn": [
+901.62,
+173.84641020356864,
+34.0
+],
+"via": [
+[
+850.0,
+160.0,
+16.0
+]
+],
+"rod_len": 368.5,
+"max_deflection": 20.8
+},
+{
+"name": "Seitenruder",
+"kind": "seite",
+"surface": "S2_Seitenruder_unten",
+"servo": "Z_Servo_Seitenruder",
+"pivot": [
+543.7,
+109.4,
+-57.62500000079653
+],
+"axis": [
+0.0,
+1.0,
+0.0
+],
+"dir": [
+0.0,
+0.0,
+1.0
+],
+"r": 10.0,
+"rest": 0.0,
+"horn": [
+889.978088146286,
+151.44013911795014,
+-12.0
+],
+"via": [],
+"rod_len": 350.6,
+"max_deflection": 28.2
+},
+{
+"name": "Bugrad",
+"kind": "bugrad",
+"surface": "G6_Lenkhebel",
+"servo": "Z_Servo_Bugrad",
+"pivot": [
+184.3,
+109.4,
+60.556756756027426
+],
+"axis": [
+0.0,
+1.0,
+0.0
+],
+"dir": [
+-1.0,
+0.0,
+0.0
+],
+"r": 14.0,
+"rest": 0.0,
+"horn": [
+164.0,
+105.1,
+0.0
+],
+"via": [],
+"rod_len": 61.0,
+"max_deflection": 31.8
+}
+]
 }

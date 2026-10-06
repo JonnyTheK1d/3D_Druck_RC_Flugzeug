@@ -299,17 +299,42 @@ def control_surface(surf: Surface, solid: Manifold, cav: Manifold, outer: Manifo
 # --------------------------------------------------------------------------- #
 # Ruderhorn, Servoschacht
 # --------------------------------------------------------------------------- #
-def add_horn_slot(surf: Surface, solid: Manifold, outer: Manifold, xh_fn, y_h: float,
-                  x_off: float = 6.0, length: float = 14.4, width: float = 2.0, height: float = 5.5):
-    """Schlitzkasten in der Unterseite einer Steuerfläche für ein eingeklebtes Ruderhorn."""
+HORN_WALL = 1.3          # Wand des Schlitzkastens
+HORN_REACH, HORN_HOLE_UP = 13.0, 4.0   # Hornarm-Länge unter der Oberfläche, Lochabstand vom Armende
+
+
+def horn_anchor(surf: Surface, xh_fn, y_h: float, x_off: float = 6.0, length: float = 14.4):
+    """(x0, z_low): Beginn des Hornschlitzkastens und Höhe der Unterseite dort (Abschnitts-Rahmen)."""
     c = surf.chord(y_h)
     x0 = xh_fn(y_h) + x_off
     z_low = surf._surf_z(x0 - surf.x_le(y_h) + length / 2, c, False)
-    wall = 1.3
+    return x0, z_low
+
+
+def horn_place(surf: Surface, xh_fn, y_h: float, x_off: float = 6.0, length: float = 14.4):
+    """Einbaulage des Ruderhorns (lokal -> Abschnitts-Rahmen) und Lage seines Anlenklochs."""
+    x0, z_low = horn_anchor(surf, xh_fn, y_h, x_off, length)
+    xs = x0 + HORN_WALL + 0.2
+    T = np.eye(4)
+    T[:3, 3] = (xs, y_h, z_low)
+    hole = np.array([xs + 7.0, y_h, z_low - HORN_REACH + HORN_HOLE_UP])
+    return T, hole
+
+
+def horn_slot_cut(surf: Surface, xh_fn, y_h: float, x_off: float = 6.0, length: float = 14.4,
+                  width: float = 2.0, height: float = 5.5) -> Manifold:
+    x0, z_low = horn_anchor(surf, xh_fn, y_h, x_off, length)
+    return g.box(x0 + HORN_WALL, x0 + HORN_WALL + length, y_h - width / 2, y_h + width / 2, z_low - 3, z_low + height)
+
+
+def add_horn_slot(surf: Surface, solid: Manifold, outer: Manifold, xh_fn, y_h: float,
+                  x_off: float = 6.0, length: float = 14.4, width: float = 2.0, height: float = 5.5):
+    """Schlitzkasten in der Unterseite einer Steuerfläche für ein eingeklebtes Ruderhorn."""
+    x0, z_low = horn_anchor(surf, xh_fn, y_h, x_off, length)
+    wall = HORN_WALL
     box = g.box(x0, x0 + length + 2 * wall, y_h - width / 2 - wall, y_h + width / 2 + wall,
                 z_low - 1.0, z_low + height + 1.2) ^ outer
-    slot = g.box(x0 + wall, x0 + wall + length, y_h - width / 2, y_h + width / 2, z_low - 3, z_low + height)
-    return (solid + box) - slot
+    return (solid + box) - horn_slot_cut(surf, xh_fn, y_h, x_off, length, width, height)
 
 
 def ruderhorn(length=14.0, base=5.5, reach=13.0, hole=1.6) -> Manifold:

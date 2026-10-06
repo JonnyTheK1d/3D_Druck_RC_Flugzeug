@@ -7,7 +7,7 @@ from . import geom as g
 from .geom import Manifold
 from .params import *
 from .parts import Part
-from .surface import (Surface, build_panel, control_surface, add_horn_slot, ruderhorn,
+from .surface import (Surface, build_panel, control_surface, add_horn_slot, horn_slot_cut, ruderhorn,
                       split_halves, aft_prism, hinge_geometry, plan_ring, CLIP, y_slab)
 
 STAB_SPAR = (STAB_SPAR_X, 0.0, 4.4, 7.4)
@@ -109,6 +109,8 @@ def build_tail() -> list[Part]:
                               note="CFK-Stab Ø4 als Holm durch beide Hälften")
     # Höhenruder
     ye_up, ye_lo = split_halves_ctrl(s, elev, p["outer"], xh_fn, ELEV_Y0, ELEV_END - HINGE_GAP, gap_a=False)
+    slot = horn_slot_cut(s, xh_fn, ELEV_HORN_Y, x_off=3.0)          # Flanschring nicht in den Hornschlitz
+    ye_up, ye_lo = ye_up - slot, ye_lo - slot
     for side, mir in (("rechts", False), ("links", True)):
         U, L = (g.mirror_y(ye_up), g.mirror_y(ye_lo)) if mir else (ye_up, ye_lo)
         parts += _upper_lower(f"H2_Hoehenruder_{side}", "Leitwerk", U, L, stab_T(),
@@ -125,8 +127,16 @@ def build_tail() -> list[Part]:
 
     fixed_f, rud, cut_r = control_surface(f, pf["solid"], pf["cav"], pf["outer"], xhf, RUDDER_Y0, RUDDER_Y1,
                                           gap_a=True, gap_b=True, cav_big=pf["cav_big"])
-    rud = add_horn_slot(f, rud, pf["outer"], xhf, RUDDER_HORN_Y, x_off=8.0, length=14.4)
-    f_up, f_lo = split_halves(fixed_f, pf["outer"], f, 0.0, yf1 + FIN_CAP, exclude=cut_r)
+    # Ruderwelle: Ø2-Federstahl in der Scharnierachse, im Ruder eingeklebt, in der Flosse gelagert;
+    # unten im Rumpf sitzt der Seitenruderhebel (S4). Die Bohrungen liegen in der Teilungsebene -> Halbrinnen.
+    def axis_cyl(ya, yb, r):
+        return g.cyl((xhf(ya), ya, 0.0), (xhf(yb), yb, 0.0), r, segs=24)
+    boss_f = (axis_cyl(-2.0, RUDDER_Y0 + 1.0, 2.5) ^ pf["outer"] ^ y_slab(-1.0, RUDDER_Y0 - 0.05)) - cut_r
+    fixed_f = fixed_f + boss_f
+    wire_bore = axis_cyl(-30.0, RUDDER_Y0 + 2.0, 1.2)                 # Lagerbohrung (auch durch den Klebeflansch)
+    boss_r = axis_cyl(RUDDER_Y0, RUDDER_WIRE_TOP + 2.0, 2.5) ^ pf["outer"] ^ cut_r ^ y_slab(RUDDER_Y0 + HINGE_GAP, 200.0)
+    rud = (rud + boss_r) - axis_cyl(RUDDER_Y0 - 5.0, RUDDER_WIRE_TOP, 1.05)
+    f_up, f_lo = split_halves(fixed_f, pf["outer"], f, 0.0, yf1 + FIN_CAP, subtract=[wire_bore], exclude=cut_r)
     # Querbohrung für den 2-mm-Verbindungsstab der Höhenruder (liegt auf deren Scharnierachse, geht durch die Flosse)
     x_e = s.x_le(0.0) + (1 - ELEV_FRAC) * stab_chord(0.0)
     y_e = STAB_Z - FIN_BASE_Z                                  # Höhe der Achse über der Flossenfußebene
@@ -139,11 +149,72 @@ def build_tail() -> list[Part]:
     # Seitenflosse/-ruder: obere = linke Seite, untere = rechte Seite
     for i, nm in enumerate(("links", "rechts")):
         pass
+    parts.append(rudder_lever())
     # ---- Hörner --------------------------------------------------------------- #
     horn = ruderhorn()
-    parts.append(Part("Ruderhorn", "Kleinteile", horn, np.eye(4), g.rot_x(90), qty=4, material="PETG",
-                      note="je 1x Querruder links/rechts, Höhen- und Seitenruder"))
+    parts.append(Part("Ruderhorn", "Kleinteile", horn, np.eye(4), g.rot_x(90), qty=5, material="PETG",
+                      note="je 1x Querruder links/rechts, Landeklappe links/rechts, Höhenruder (links unten)"))
     return parts
+
+
+# --------------------------------------------------------------------------- #
+# Seitenruder-Anlenkung: Ruderwelle + Hebel im Rumpfheck
+# --------------------------------------------------------------------------- #
+def elevator_horn_T() -> np.ndarray:
+    """Einbaulage des Höhenruderhorns (links unten) im Zusammenbau."""
+    from .surface import horn_place
+    s = stab_surface()
+    xe = lambda y: s.x_le(y) + (1 - ELEV_FRAC) * stab_chord(y)
+    T, _ = horn_place(s, xe, ELEV_HORN_Y, x_off=3.0)
+    M = np.diag([1.0, -1.0, 1.0, 1.0])
+    return M @ stab_T() @ T @ M
+
+
+def elevator_horn_hole() -> np.ndarray:
+    from .surface import HORN_REACH, HORN_HOLE_UP
+    return (elevator_horn_T() @ np.array([7.0, 0.0, -HORN_REACH + HORN_HOLE_UP, 1.0]))[:3]
+
+
+def rudder_axis():
+    """Scharnierachse des Seitenruders im Zusammenbau: (Punkt bei Fußhöhe, Richtung nach oben)."""
+    (xa, _), (xb, _) = RUDDER_HINGE
+    a = np.array([xa, 0.0, FIN_BASE_Z])
+    b = np.array([xb, 0.0, FIN_BASE_Z + FIN_HEIGHT])
+    return a, (b - a) / np.linalg.norm(b - a)
+
+
+def rudder_axis_at(z: float) -> np.ndarray:
+    a, u = rudder_axis()
+    return a + u * (z - a[2]) / u[2]
+
+
+def rudder_lever_T() -> np.ndarray:
+    """Hebel lokal (z = Wellenachse, x = Hebelarm) -> Zusammenbau; Arm zeigt nach rechts (+y)."""
+    _, u = rudder_axis()
+    ex = np.array([0.0, 1.0, 0.0])
+    T = np.eye(4)
+    T[:3, 0], T[:3, 1], T[:3, 2] = ex, np.cross(u, ex), u
+    T[:3, 3] = rudder_axis_at(RUDDER_LEVER_Z)
+    return T
+
+
+def rudder_lever_hole() -> np.ndarray:
+    return (rudder_lever_T() @ np.array([RUDDER_LEVER_R, 0.0, 2.5, 1.0]))[:3]
+
+
+def rudder_wire_line():
+    """Ruderwelle (Zusammenbau): von der Hebel-Unterkante bis ins Seitenruder."""
+    return rudder_axis_at(RUDDER_LEVER_Z - 1.0), rudder_axis_at(FIN_BASE_Z + RUDDER_WIRE_TOP - 1.0)
+
+
+def rudder_lever() -> Part:
+    r, h = 5.0, 8.0
+    body = g.cyl((0, 0, 0), (0, 0, h), r, segs=40) + g.box(0, RUDDER_LEVER_R + 3.5, -3.0, 3.0, 0.0, 5.0)   # liegt flach auf
+    body = body - g.cyl((0, 0, -1), (0, 0, h + 1), 1.1, segs=24)                       # Ø2-Welle
+    body = body - g.cyl((-r - 1, 0, h / 2), (0, 0, h / 2), 1.25, segs=16)              # M3-Madenschraube (nach links)
+    body = body - g.cyl((RUDDER_LEVER_R, 0, 0), (RUDDER_LEVER_R, 0, h), 0.8, segs=16)  # Anlenkloch Ø1,6
+    return Part("S4_Seitenruderhebel", "Leitwerk", body, rudder_lever_T(), np.eye(4), material="PETG", infill=1.0,
+                note="klemmt mit M3-Madenschraube auf der Ø2-Ruderwelle; Zugang durch die Wartungsöffnung links im Heck")
 
 
 def pivot_pts(surf, xh_fn, ya, yb):

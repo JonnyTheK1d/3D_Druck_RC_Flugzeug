@@ -137,9 +137,11 @@ FIN_ROOT_TE = 975.0
 FIN_TIP_LE = 895.0
 FIN_TIP_TE = 972.0
 FIN_CAP = 22.0
-RUDDER_HINGE = ((885.0, 0.0), (924.0, FIN_HEIGHT))   # (x, Höhe über Fußebene)
+RUDDER_HINGE = ((893.0, 0.0), (932.0, FIN_HEIGHT))   # (x, Höhe über Fußebene); Ruderwelle läuft 4,9 mm hinter dem Höhenruder-Verbinder
 RUDDER_Y0, RUDDER_Y1 = 31.0, 150.0                    # Seitenruder von/bis (Höhe über Fußebene)
-RUDDER_HORN_Y = RUDDER_Y0 + 9.0                       # Hornhöhe über der Fußebene
+RUDDER_WIRE_TOP = RUDDER_Y0 + 45.0                    # Ruderwelle (Ø2-Draht) reicht bis hier ins Seitenruder
+RUDDER_LEVER_R = 12.0                                 # Lochabstand am Seitenruderhebel (im Rumpfheck)
+RUDDER_LEVER_Z = 149.0                                # Unterkante Seitenruderhebel (Zusammenbau)
 ELEV_HORN_Y = 34.0                                    # Horn am Höhenruder (seitlich neben dem Heck)
 
 # --------------------------------------------------------------------------- #
