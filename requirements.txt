@@ -1,0 +1,11 @@
+numpy
+scipy
+shapely
+trimesh
+manifold3d
+matplotlib
+mapbox-earcut
+numba
+pillow
+networkx
+pytest

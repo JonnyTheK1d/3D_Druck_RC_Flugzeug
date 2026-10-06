@@ -1,0 +1,18 @@
+{
+  "teile": 48,
+  "druckteile_masse_g": 1066,
+  "zukauf_masse_g": 527,
+  "gesamtmasse_g": 1593,
+  "schwerpunkt_x_mm": 350.5,
+  "schwerpunkt_prozent_mac": 29.9,
+  "neutralpunkt_x_mm": 378.5,
+  "neutralpunkt_prozent_mac": 45.1,
+  "stabilitaetsmass_prozent_mac": 15.2,
+  "fluegelflaeche_dm2": 25.17,
+  "flaechenbelastung_g_dm2": 63.3,
+  "mac_mm": 185.2,
+  "streckung": 7.51,
+  "leitwerksvolumen": 0.53,
+  "hauptfahrwerk_abstand_cg_mm": 31.5,
+  "draht_hauptfahrwerk_mm": 391
+}
