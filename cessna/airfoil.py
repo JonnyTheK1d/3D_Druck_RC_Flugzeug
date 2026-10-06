@@ -6,7 +6,10 @@ import numpy as np
 TE_THICKNESS = 0.0021   # relative Hinterkantendicke (Standardformel ohne Schließung)
 
 
-def naca4(code: str, n: int = 56) -> np.ndarray:
+TE_EXTRA = 0.0025       # zusätzliche halbe Hinterkantendicke (relativ, wächst mit x²) -> druckbare Hinterkante
+
+
+def naca4(code: str, n: int = 56, te_extra: float = TE_EXTRA) -> np.ndarray:
     """Liefert Kontur (M,2) mit x in [0,1]: Oberseite HK->VK, dann Unterseite VK->HK.
 
     Ohne doppelten Punkt an der Nase; Hinterkante bleibt leicht geöffnet.
@@ -26,6 +29,7 @@ def naca4(code: str, n: int = 56) -> np.ndarray:
                       m / (1 - p) ** 2 * ((1 - 2 * p) + 2 * p * x - x**2))
         dyc = np.where(x < p, 2 * m / p**2 * (p - x), 2 * m / (1 - p) ** 2 * (p - x))
     th = np.arctan(dyc)
+    yt = yt + te_extra * x ** 2
     xu, yu = x - yt * np.sin(th), yc + yt * np.cos(th)
     xl, yl = x + yt * np.sin(th), yc - yt * np.cos(th)
     upper = np.column_stack([xu, yu])[::-1]           # HK -> VK

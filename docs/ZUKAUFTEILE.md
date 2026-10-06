@@ -9,7 +9,7 @@ Schwerpunktrechnung ein (`cessna/params.py`, Abschnitt `BOUGHT_PARTS`).
 |---|---|---:|
 | Außenläufer | Klasse 28xx, ca. 1000–1100 kV, Ø 28 mm, ca. 70–80 g, Befestigung 16/19-mm-Kreuz (M3) | 1 |
 | Regler | 30 A (besser 40 A), BEC ≥ 3 A | 1 |
-| Luftschraube | 10×6″ (z. B. APC 10×6 E), 2 Blatt | 1 |
+| Luftschraube | 10×6″ (z. B. APC 10×6 E), 2 Blatt; **Bodenfreiheit nur ca. 23 mm** (Wellenhöhe 150 mm) → auf rauem Gras besser 9×6″ (36 mm) | 1 |
 | Propelleradapter | mit Mitnehmerscheibe, Welle passend zum Motor (3,17 / 4 / 5 mm) | 1 |
 | Akku | LiPo 3S 2200 mAh, ≥ 25C, **max. 115 × 35 × 26 mm**, ca. 190 g | 1 |
 

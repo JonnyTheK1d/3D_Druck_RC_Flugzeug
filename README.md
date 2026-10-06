@@ -19,9 +19,9 @@ vollständig als **druckbare STL-Dateien** für Drucker ab **220 × 220 mm** Dru
 | Leitwerk | Höhenleitwerk 425 mm (NACA 0010), Seitenleitwerk 175 mm hoch (NACA 0009) |
 | Steuerung | Quer-, Höhen-, Seitenruder, Gas, steuerbares Bugrad (5 Servos 9 g) |
 | Antrieb (Empfehlung) | Außenläufer 28xx ≈ 1000 kV, 30-A-Regler, 3S 2200 mAh, Luftschraube 10×6″ |
-| Abfluggewicht (Schätzung) | **≈ 1,6 kg** (1,07 kg gedruckt + 0,53 kg Elektronik/Kohlefaser) |
-| Flächenbelastung | ≈ 63 g/dm², Überziehgeschwindigkeit ≈ 9 m/s |
-| Schwerpunkt (Rechenwert) | 55 mm hinter der Flügelvorderkante ≈ **30 % MAC**, Stabilitätsmaß ≈ 15 % MAC |
+| Abfluggewicht (Schätzung) | **≈ 1,6 kg** (1,09 kg gedruckt + 0,53 kg Elektronik/Kohlefaser) |
+| Flächenbelastung | ≈ 64 g/dm², Überziehgeschwindigkeit ≈ 9 m/s |
+| Schwerpunkt (Rechenwert) | 58 mm hinter der Flügelvorderkante ≈ **31 % MAC**, Stabilitätsmaß ≈ 14 % MAC |
 | Druckteile | **48 STL-Dateien / 55 Drucke**, größte Grundfläche 205 × 205 mm, höchstes Teil 93 mm |
 | Material | ca. 920 g **LW-PLA**, 70 g PETG, 45 g PLA, 30 g TPU (siehe `docs/DRUCKEINSTELLUNGEN.md`) |
 
@@ -55,10 +55,10 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 
 1. **Material besorgen:** ca. 1 kg LW-PLA (Flügel/Rumpf/Leitwerk), etwas PETG, PLA und TPU → `docs/DRUCKEINSTELLUNGEN.md`.
 2. **Zukaufteile bestellen** → `docs/ZUKAUFTEILE.md` (Kohlefaser-Rohre 10/8 mm in 660 mm, Federstahldraht, 5 Mikroservos, …).
-3. **Zuerst `W0_Mittelstueck` drucken und wiegen** (Soll ≈ 56 g) – damit Flow/Temperatur für LW-PLA richtig stehen.
+3. **Zuerst `W0_Mittelstueck` drucken und wiegen** (Soll ≈ 58 g) – damit Flow/Temperatur für LW-PLA richtig stehen.
 4. Alle Teile drucken: STL liegen fertig ausgerichtet vor, **keine Stützen** außer optional unter der Flügelnase.
 5. Zusammenbau nach `docs/BAUANLEITUNG.md` (Flügel → Leitwerk → Rumpf → Antrieb → Fahrwerk → Endmontage).
-6. Schwerpunkt einstellen (55 mm hinter der Flügelvorderkante), Ruder einstellen, **vorsichtig** einfliegen.
+6. Schwerpunkt einstellen (58 mm hinter der Flügelvorderkante), Ruder einstellen, **vorsichtig** einfliegen.
 
 ## Konstruktionsprinzip
 

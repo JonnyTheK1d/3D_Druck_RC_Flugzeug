@@ -121,9 +121,9 @@ Empfohlener Lenkausschlag ca. ±30°; Bugradservo über **Y-Kabel auf den Seiten
 
 | Größe | Wert |
 |---|---|
-| **Schwerpunkt** | **55 mm hinter der Flügelvorderkante** (Rechenwert 350 mm hinter der Haubenvorderkante); zulässig: 45–65 mm = 24–35 % MAC |
+| **Schwerpunkt** | **58 mm hinter der Flügelvorderkante** (Rechenwert 353 mm hinter der Haubenvorderkante); zulässig: 45–65 mm = 24–35 % MAC |
 | MAC | 185 mm |
-| Auswiegen | Flugzeug an den Punkten bei **x = 350 mm** (am Rumpf von der Haubenvorderkante gemessen) unterstützen, Nase leicht unten |
+| Auswiegen | Flugzeug an den Punkten bei **x = 353 mm** (am Rumpf von der Haubenvorderkante gemessen) unterstützen, Nase leicht unten |
 
 Ist die Nase zu leicht: Akku nach vorn, bei Bedarf Trimmblei (Klett) im Bug (Motorhaube); 20 g im Bug verschieben den
 Schwerpunkt um ca. 4 mm nach vorn.
@@ -141,6 +141,6 @@ Gaskurve/Motor: Erst ohne Luftschraube prüfen (Drehrichtung, Failsafe). Reichwe
 
 * Ungeprüfter Entwurf! Das Flugzeug wurde **gebaut und gerechnet, aber nicht geflogen**. Gewichte, Schwerpunkt und
   Leistung sind Rechenwerte. Rechne mit Abweichungen und Probeflügen. Erstflug bei Windstille, Gras, mit Erfahrung.
-* Reserve: Das Modell hat nur ca. 0,5–0,6 Schub/Gewicht (Richtwert) und 63 g/dm² Flächenbelastung; Überziehgeschwindigkeit ca. 9 m/s.
+* Reserve: Das Modell hat nur ca. 0,5–0,6 Schub/Gewicht (Richtwert) und 64 g/dm² Flächenbelastung; Überziehgeschwindigkeit ca. 9 m/s.
   Starte mit Vollgas gegen den Wind und steige flach.
 * Prüfe nach jedem Flug Scharniere, Holm-Verklebung, Fahrwerksdraht und Schrauben.

@@ -149,14 +149,38 @@ def to_f32(tm):
 
 
 def export_mesh(m: g.Manifold):
-    """Netz für den STL-Export: Nulldreiecke (T-Stöße) per Vereinfachung kollabieren, Splitter entfernen."""
-    best = None
+    """Netz für den STL-Export.
+
+    Stufen (die erste, deren STL nach der float32-Rundung wasserdicht ist, gewinnt):
+    1. Vereinfachen (kollabiert Nulldreiecke an T-Stößen) mit steigender Toleranz,
+    2. mikroskopische Verschiebung in x/y (ändert, welche Eckpunkte beim float32-Runden zusammenfallen),
+    3. Aufweiten um wenige Mikrometer (schließt Haarspalte zwischen sich fast berührenden Flächen).
+    """
+    first = None
+
+    def attempt(mm):
+        nonlocal first
+        tm = to_f32(g.clean_trimesh(g.to_trimesh(mm)))
+        first = tm if first is None else first
+        return tm if stl_ok(tm) else None
+
     for tol in (1e-4, 3e-4, 1e-3, 3e-3, 1e-2, 3e-2):
-        tm = to_f32(g.clean_trimesh(g.to_trimesh(m.simplify(tol))))
-        best = tm if best is None else best
-        if stl_ok(tm):
+        ms = m.simplify(tol)
+        tm = attempt(ms)
+        if tm is not None:
             return tm
-    return best
+    base = m.simplify(1e-3)
+    for dx, dy in ((0.00137, 0.00291), (0.00311, 0.00073), (0.00219, 0.00417), (0.00053, 0.00377),
+                   (0.00439, 0.00161), (0.00277, 0.00523)):
+        tm = attempt(base.translate((dx, dy, 0.0)))
+        if tm is not None:
+            return tm
+    kern = lambda r: g.Manifold.sphere(r, 8)
+    for r in (0.004, 0.006, 0.010):
+        tm = attempt(m.minkowski_sum(kern(r)).simplify(1e-3).translate((0.0, 0.0, r)))   # Boden wieder auf z = 0
+        if tm is not None:
+            return tm
+    return first
 
 
 def export_stl(parts: list[Part], outdir=STL_DIR):

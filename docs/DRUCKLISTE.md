@@ -7,11 +7,11 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 
 | Teil | Menge | Material | Größe x·y·z [mm] | Masse [g] | Hinweis |
 |---|---:|---|---|---:|---|
-| `W0_Mittelstueck` | 1 | LW-PLA | 200 · 160 · 24 | 56.0 | 4 Schraubendome für M3, Kabelaustritt unten |
-| `W1_rechts` | 1 | LW-PLA | 200 · 202 · 24 | 67.6 |  |
-| `W1_links` | 1 | LW-PLA | 200 · 202 · 24 | 67.6 |  |
-| `W2_rechts` | 1 | LW-PLA | 200 · 202 · 24 | 52.2 | mit Servoschacht für 9-g-Servo (Querruder) |
-| `W2_links` | 1 | LW-PLA | 200 · 202 · 24 | 52.2 | mit Servoschacht für 9-g-Servo (Querruder) |
+| `W0_Mittelstueck` | 1 | LW-PLA | 200 · 160 · 24 | 57.5 | 4 Schraubendome für M3, Kabelaustritt unten |
+| `W1_rechts` | 1 | LW-PLA | 200 · 202 · 24 | 69.4 |  |
+| `W1_links` | 1 | LW-PLA | 200 · 202 · 24 | 69.4 |  |
+| `W2_rechts` | 1 | LW-PLA | 200 · 202 · 24 | 52.5 | mit Servoschacht für 9-g-Servo (Querruder) |
+| `W2_links` | 1 | LW-PLA | 200 · 202 · 24 | 52.5 | mit Servoschacht für 9-g-Servo (Querruder) |
 | `W3_rechts` | 1 | LW-PLA | 146 · 202 · 20 | 41.6 | mit abgerundetem Randbogen |
 | `W3_links` | 1 | LW-PLA | 146 · 202 · 20 | 41.6 | mit abgerundetem Randbogen |
 
@@ -19,27 +19,27 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 
 | Teil | Menge | Material | Größe x·y·z [mm] | Masse [g] | Hinweis |
 |---|---:|---|---|---:|---|
-| `Q1_Querruder_innen_rechts` | 1 | LW-PLA | 78 · 154 · 13 | 18.7 | Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben |
-| `Q1_Querruder_innen_links` | 1 | LW-PLA | 78 · 154 · 13 | 18.7 | Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben |
-| `Q2_Querruder_aussen_rechts` | 1 | LW-PLA | 71 · 164 · 12 | 16.0 |  |
-| `Q2_Querruder_aussen_links` | 1 | LW-PLA | 71 · 164 · 12 | 16.0 |  |
+| `Q1_Querruder_innen_rechts` | 1 | LW-PLA | 79 · 154 · 14 | 21.5 | Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben |
+| `Q1_Querruder_innen_links` | 1 | LW-PLA | 79 · 154 · 14 | 21.5 | Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben |
+| `Q2_Querruder_aussen_rechts` | 1 | LW-PLA | 72 · 164 · 12 | 18.3 |  |
+| `Q2_Querruder_aussen_links` | 1 | LW-PLA | 72 · 164 · 12 | 18.3 |  |
 
 ## Leitwerk
 
 | Teil | Menge | Material | Größe x·y·z [mm] | Masse [g] | Hinweis |
 |---|---:|---|---|---:|---|
-| `H1_Hoehenflosse_rechts_oben` | 1 | LW-PLA | 104 · 205 · 6 | 8.0 | CFK-Stab Ø4 als Holm durch beide Hälften |
-| `H1_Hoehenflosse_rechts_unten` | 1 | LW-PLA | 104 · 205 · 6 | 8.0 | CFK-Stab Ø4 als Holm durch beide Hälften |
-| `H1_Hoehenflosse_links_oben` | 1 | LW-PLA | 104 · 205 · 6 | 8.0 | CFK-Stab Ø4 als Holm durch beide Hälften |
-| `H1_Hoehenflosse_links_unten` | 1 | LW-PLA | 104 · 205 · 6 | 8.0 | CFK-Stab Ø4 als Holm durch beide Hälften |
-| `H2_Hoehenruder_rechts_oben` | 1 | LW-PLA | 71 · 177 · 5 | 7.1 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
-| `H2_Hoehenruder_rechts_unten` | 1 | LW-PLA | 71 · 177 · 5 | 7.1 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
-| `H2_Hoehenruder_links_oben` | 1 | LW-PLA | 71 · 177 · 5 | 7.1 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
-| `H2_Hoehenruder_links_unten` | 1 | LW-PLA | 71 · 177 · 5 | 7.1 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
-| `S1_Seitenflosse_oben` | 1 | LW-PLA | 205 · 175 · 9 | 9.7 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
-| `S1_Seitenflosse_unten` | 1 | LW-PLA | 205 · 175 · 9 | 9.7 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
-| `S2_Seitenruder_oben` | 1 | LW-PLA | 89 · 116 · 7 | 7.2 |  |
-| `S2_Seitenruder_unten` | 1 | LW-PLA | 89 · 116 · 7 | 7.2 |  |
+| `H1_Hoehenflosse_rechts_oben` | 1 | LW-PLA | 104 · 205 · 6 | 7.9 | CFK-Stab Ø4 als Holm durch beide Hälften |
+| `H1_Hoehenflosse_rechts_unten` | 1 | LW-PLA | 104 · 205 · 6 | 7.9 | CFK-Stab Ø4 als Holm durch beide Hälften |
+| `H1_Hoehenflosse_links_oben` | 1 | LW-PLA | 104 · 205 · 6 | 7.9 | CFK-Stab Ø4 als Holm durch beide Hälften |
+| `H1_Hoehenflosse_links_unten` | 1 | LW-PLA | 104 · 205 · 6 | 7.9 | CFK-Stab Ø4 als Holm durch beide Hälften |
+| `H2_Hoehenruder_rechts_oben` | 1 | LW-PLA | 72 · 177 · 5 | 8.0 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
+| `H2_Hoehenruder_rechts_unten` | 1 | LW-PLA | 72 · 177 · 5 | 8.0 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
+| `H2_Hoehenruder_links_oben` | 1 | LW-PLA | 72 · 177 · 5 | 8.0 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
+| `H2_Hoehenruder_links_unten` | 1 | LW-PLA | 72 · 177 · 5 | 8.0 | 2-mm-CFK-Stab verbindet beide Hälften; Horn nur an einer Seite |
+| `S1_Seitenflosse_oben` | 1 | LW-PLA | 205 · 175 · 9 | 9.8 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
+| `S1_Seitenflosse_unten` | 1 | LW-PLA | 205 · 175 · 9 | 9.8 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
+| `S2_Seitenruder_oben` | 1 | LW-PLA | 90 · 116 · 7 | 7.9 |  |
+| `S2_Seitenruder_unten` | 1 | LW-PLA | 90 · 116 · 7 | 8.0 |  |
 
 ## Kleinteile
 
@@ -55,8 +55,8 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 | `F1_Motorhaube_links` | 1 | LW-PLA | 131 · 123 · 70 | 23.2 |  |
 | `F2_Bug_rechts` | 1 | LW-PLA | 195 · 174 · 75 | 54.3 | mit Steckmuffe nach hinten |
 | `F2_Bug_links` | 1 | LW-PLA | 195 · 174 · 75 | 55.1 | mit Steckmuffe nach hinten |
-| `F3_Kabine_rechts` | 1 | LW-PLA | 198 · 174 · 75 | 57.7 | mit Steckmuffe nach hinten |
-| `F3_Kabine_links` | 1 | LW-PLA | 198 · 174 · 75 | 57.7 | mit Steckmuffe nach hinten |
+| `F3_Kabine_rechts` | 1 | LW-PLA | 198 · 174 · 75 | 57.5 | mit Steckmuffe nach hinten |
+| `F3_Kabine_links` | 1 | LW-PLA | 198 · 174 · 75 | 57.5 | mit Steckmuffe nach hinten |
 | `F4_Rumpfmitte_rechts` | 1 | LW-PLA | 178 · 174 · 74 | 29.0 | mit Steckmuffe nach hinten |
 | `F4_Rumpfmitte_links` | 1 | LW-PLA | 178 · 174 · 74 | 29.0 | mit Steckmuffe nach hinten |
 | `F5_Heckkonus_rechts` | 1 | LW-PLA | 183 · 87 · 48 | 15.4 | mit Steckmuffe nach hinten |

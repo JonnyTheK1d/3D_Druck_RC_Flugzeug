@@ -17,6 +17,7 @@ from .params import RIB_T, HINGE_GAP
 
 CLIP = 0.93          # Hohlraum endet bei 93 % Tiefe, dahinter massive Hinterkante
 MIN_PIECE_RATIO = 0.93
+NOSE_MARGIN = 1.4    # Radius der Ruder-Rundnase = halbe Dicke + Rand (steiler Schnittwinkel -> robuste Booleans)
 OV = 0.2             # Überstand von Verschlussplatten in den Spalt (mm)
 
 
@@ -224,7 +225,7 @@ def hinge_geometry(surf: Surface, xh_fn, ya, yb, off=0.0):
         c = surf.chord(y)
         rel = xh_fn(y) - surf.x_le(y)
         zp = surf.camber_abs(rel, c)
-        r = surf.thickness_abs(rel, c) / 2 + 0.6
+        r = surf.thickness_abs(rel, c) / 2 + NOSE_MARGIN
         return np.array([xh_fn(y), y, zp]), r
     p0, r0 = pivot(ya)
     p1, r1 = pivot(yb)
