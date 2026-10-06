@@ -308,6 +308,33 @@ function makeMaterial(color) {
   return new THREE.MeshStandardMaterial({ color: new THREE.Color(color), roughness: 0.58, metalness: 0.04 });
 }
 
+async function fetchProgress(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(url + " nicht gefunden");
+  const total = +res.headers.get("content-length") || 0;
+  if (!res.body || !total) return await res.text();
+  const reader = res.body.getReader();
+  const chunks = [];
+  let got = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    got += value.length;
+    const p = Math.min(99, Math.round((got / total) * 100));
+    $("loadbar").style.width = p + "%";
+    $("loadtxt").textContent = p + " %";
+  }
+  return new TextDecoder().decode(await new Blob(chunks).arrayBuffer());
+}
+
+async function loadModel() {
+  // Modell liegt als Base64-Text vor (flugzeug.glb.txt), damit jedes Hosting es ausliefert
+  const b64 = await fetchProgress("flugzeug.glb.txt");
+  const bin = Uint8Array.from(atob(b64.trim()), (c) => c.charCodeAt(0));
+  return await new Promise((resolve, reject) => new GLTFLoader().parse(bin.buffer, "", resolve, reject));
+}
+
 async function load() {
   const res = await fetch("teile.json");
   if (!res.ok) throw new Error("teile.json nicht gefunden");
@@ -316,15 +343,7 @@ async function load() {
   root.position.set(-(lo[0] + hi[0]) / 2, 0, -(lo[2] + hi[2]) / 2);
   const metaByNode = new Map(info.parts.map((p) => [p.node, p]));
 
-  const gltf = await new Promise((resolve, reject) => {
-    new GLTFLoader().load("flugzeug.glb", resolve, (e) => {
-      if (e.total) {
-        const p = Math.round((e.loaded / e.total) * 100);
-        $("loadbar").style.width = p + "%";
-        $("loadtxt").textContent = p + " %";
-      }
-    }, reject);
-  });
+  const gltf = await loadModel();
 
   const meshes = [];
   gltf.scene.traverse((o) => { if (o.isMesh) meshes.push(o); });

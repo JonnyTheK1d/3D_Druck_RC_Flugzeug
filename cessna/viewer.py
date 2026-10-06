@@ -86,6 +86,9 @@ def export_viewer(parts: list[Part], outdir: str, mass: dict, nums: dict, tol: f
             meta.append(entry)
     path = os.path.join(outdir, "flugzeug.glb")
     scene.export(path)
+    # Base64-Textfassung (Web-Hosting, das nur Text-/Bildtypen ausliefert)
+    import base64
+    open(os.path.join(outdir, "flugzeug.glb.txt"), "w").write(base64.b64encode(open(path, "rb").read()).decode("ascii"))
     b = np.array(allpts)
     lo, hi = b[:, 0].min(axis=0), b[:, 1].max(axis=0)
     cg = _v((mass["cg_x"], 0.0, WING_Z_REF - 20.0))

@@ -65,7 +65,7 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 
 ## 3D-Ansicht im Browser
 
-`docs/viewer/index.html` zeigt das komplette Flugzeug interaktiv (drehen, zoomen, Explosionsansicht, Baugruppen
+`docs/viewer/index.html` zeigt das komplette Flugzeug interaktiv (Modell: `flugzeug.glb`, für die Seite base64-kodiert in `flugzeug.glb.txt`) (drehen, zoomen, Explosionsansicht, Baugruppen
 ein-/ausblenden, Ruder bewegen). Wegen der Browser-Sicherheit die Seite über einen kleinen Webserver öffnen:
 
 ```bash
