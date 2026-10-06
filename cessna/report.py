@@ -102,3 +102,55 @@ def dump_numbers(parts, mass, np_, path):
     )
     json.dump(d, open(path, "w"), indent=2, ensure_ascii=False)
     return d
+
+
+def _replace_block(path: str, key: str, text: str):
+    s = open(path, encoding="utf-8").read()
+    a, b = f"<!-- AUTO:{key} -->", f"<!-- /AUTO:{key} -->"
+    i, j = s.index(a) + len(a), s.index(b)
+    s = s[:i] + "\n" + text.rstrip("\n") + "\n" + s[j:]
+    open(path, "w", encoding="utf-8").write(s)
+
+
+def _de(x: float, nd: int = 1) -> str:
+    return f"{x:.{nd}f}".replace(".", ",")
+
+
+def sync_docs(root: str, parts: list[Part], mass: dict, np_: dict, nums: dict):
+    """Schreibt Kennzahlen/Gewichte direkt aus dem Modell in README, Bauanleitung und Druckeinstellungen."""
+    readme = os.path.join(root, "README.md")
+    guide = os.path.join(root, "docs", "BAUANLEITUNG.md")
+    pe = os.path.join(root, "docs", "DRUCKEINSTELLUNGEN.md")
+    mac, xle = np_["mac"], np_["x_le_mac"]
+    cg_rel = mass["cg_x"] - xle
+    sizes = np.array([p.print_size() for p in parts])
+    by_mat = {}
+    for p in parts:
+        by_mat[p.material] = by_mat.get(p.material, 0.0) + p.mass_g() * p.qty
+    prints = sum(p.qty for p in parts)
+    rows = [
+        f"| Abfluggewicht (Schätzung) | **≈ {_de(nums['gesamtmasse_g'] / 1000)} kg** "
+        f"({_de(nums['druckteile_masse_g'] / 1000, 2)} kg gedruckt + {_de(nums['zukauf_masse_g'] / 1000, 2)} kg Elektronik/Kohlefaser) |",
+        f"| Flächenbelastung | ≈ {nums['flaechenbelastung_g_dm2']:.0f} g/dm², Überziehgeschwindigkeit ≈ 9 m/s |",
+        f"| Schwerpunkt (Rechenwert) | {cg_rel:.0f} mm hinter der Flügelvorderkante ≈ **{nums['schwerpunkt_prozent_mac']:.0f} % MAC**, "
+        f"Stabilitätsmaß ≈ {nums['stabilitaetsmass_prozent_mac']:.0f} % MAC |",
+        f"| Druckteile | **{len(parts)} STL-Dateien / {prints} Drucke**, größte Grundfläche {max(sizes[:, 0].max(), sizes[:, 1].max()):.0f} × "
+        f"{max(sizes[:, 0].max(), sizes[:, 1].max()):.0f} mm, höchstes Teil {sizes[:, 2].max():.0f} mm |",
+        f"| Material | ca. {by_mat.get('LW-PLA', 0):.0f} g **LW-PLA**, {by_mat.get('PETG', 0):.0f} g PETG, {by_mat.get('PLA', 0):.0f} g PLA, "
+        f"{by_mat.get('TPU', 0):.0f} g TPU (siehe `docs/DRUCKEINSTELLUNGEN.md`) |",
+    ]
+    _replace_block(readme, "eckdaten", "\n".join(rows))
+    cg_rows = [
+        "| Größe | Wert |", "|---|---|",
+        f"| **Schwerpunkt** | **{cg_rel:.0f} mm hinter der Flügelvorderkante** (Rechenwert {mass['cg_x']:.0f} mm hinter der Haubenvorderkante); "
+        f"zulässig: {0.24 * mac:.0f}–{0.35 * mac:.0f} mm = 24–35 % MAC |",
+        f"| MAC | {mac:.0f} mm |",
+        f"| Auswiegen | Flugzeug an den Punkten bei **x = {mass['cg_x']:.0f} mm** (am Rumpf von der Haubenvorderkante gemessen) unterstützen, Nase leicht unten |",
+    ]
+    _replace_block(guide, "schwerpunkt", "\n".join(cg_rows))
+    mat_rows = ["| Material | Teile | Masse |", "|---|---|---:|",
+                f"| **LW-PLA** (schäumend) | Flügel, Querruder, Rumpf (6 Segmente), Leitwerk | ca. {by_mat.get('LW-PLA', 0):.0f} g |",
+                f"| **PETG** | Motorbock, Spinnerplatte, Fahrwerksklemmen, Bugfahrwerkslager, Gabel, Lenkhebel, Ruderhörner | ca. {by_mat.get('PETG', 0):.0f} g |",
+                f"| **PLA** | Spinnerkegel, Radnaben, Streben | ca. {by_mat.get('PLA', 0):.0f} g |",
+                f"| **TPU 95A** | 3 Reifen | ca. {by_mat.get('TPU', 0):.0f} g |"]
+    _replace_block(pe, "material", "\n".join(mat_rows))

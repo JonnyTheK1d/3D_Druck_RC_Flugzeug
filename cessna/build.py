@@ -272,6 +272,7 @@ def main():
                              os.path.join(DOC_DIR, "img", "fahrwerk_biegeschablone.png")) if os.makedirs(os.path.join(DOC_DIR, "img"), exist_ok=True) is None else None
         total = sum(os.path.getsize(path) for _, path in rows)
         print(f"STL exportiert: {len(rows)} Dateien, {total / 1e6:.1f} MB")
+    report.sync_docs(ROOT, parts, mass, np_, nums)
     if not args.no_images:
         showcase.make_images(parts, os.path.join(DOC_DIR, "img"))
         showcase.contact_sheet(parts, os.path.join(DOC_DIR, "img", "teileuebersicht.png"))

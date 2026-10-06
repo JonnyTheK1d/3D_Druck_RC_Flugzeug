@@ -6,12 +6,14 @@ Alle STL-Dateien liegen in **Druckausrichtung** vor (kein Drehen nötig, Teile l
 
 ## Materialübersicht
 
-| Material | Teile | Anteil |
+<!-- AUTO:material -->
+| Material | Teile | Masse |
 |---|---|---:|
-| **LW-PLA** (schäumend) | Flügel, Querruder, Rumpf (6 Segmente), Leitwerk | ca. 920 g |
-| **PETG** | Motorbock, Spinnerplatte, Fahrwerksklemmen, Bugfahrwerkslager, Gabel, Lenkhebel, Ruderhörner | ca. 70 g |
-| **PLA** | Spinnerkegel, Radnaben, Streben | ca. 45 g |
-| **TPU 95A** | 3 Reifen | ca. 30 g |
+| **LW-PLA** (schäumend) | Flügel, Querruder, Rumpf (6 Segmente), Leitwerk | ca. 937 g |
+| **PETG** | Motorbock, Spinnerplatte, Fahrwerksklemmen, Bugfahrwerkslager, Gabel, Lenkhebel, Ruderhörner | ca. 71 g |
+| **PLA** | Spinnerkegel, Radnaben, Streben | ca. 46 g |
+| **TPU 95A** | 3 Reifen | ca. 35 g |
+<!-- /AUTO:material -->
 
 > Ohne LW-PLA geht es auch mit normalem PLA, dann wird das Flugzeug aber etwa **doppelt so schwer** (Flügel/Rumpf-Schalen
 > wiegen dann ca. 2,0 kg) und fliegt nicht mehr sinnvoll. Für PLA müsste man die Wandstärken in `cessna/params.py`

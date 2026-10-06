@@ -119,11 +119,13 @@ Empfohlener Lenkausschlag ca. ±30°; Bugradservo über **Y-Kabel auf den Seiten
 
 ## 7. Schwerpunkt und Einstellungen
 
+<!-- AUTO:schwerpunkt -->
 | Größe | Wert |
 |---|---|
-| **Schwerpunkt** | **58 mm hinter der Flügelvorderkante** (Rechenwert 353 mm hinter der Haubenvorderkante); zulässig: 45–65 mm = 24–35 % MAC |
+| **Schwerpunkt** | **58 mm hinter der Flügelvorderkante** (Rechenwert 353 mm hinter der Haubenvorderkante); zulässig: 44–65 mm = 24–35 % MAC |
 | MAC | 185 mm |
 | Auswiegen | Flugzeug an den Punkten bei **x = 353 mm** (am Rumpf von der Haubenvorderkante gemessen) unterstützen, Nase leicht unten |
+<!-- /AUTO:schwerpunkt -->
 
 Ist die Nase zu leicht: Akku nach vorn, bei Bedarf Trimmblei (Klett) im Bug (Motorhaube); 20 g im Bug verschieben den
 Schwerpunkt um ca. 4 mm nach vorn.
