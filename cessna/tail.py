@@ -162,4 +162,4 @@ def split_halves_ctrl(surf, ctrl, outer, xh_fn, ya, yb, gap_a=True):
     dn_ring = g.Manifold.extrude(ring, 1.0).translate((0, 0, -1.0)) ^ outer
     upper = (ctrl ^ g.box(-1e4, 1e4, -1e4, 1e4, 0, 1e3)) + up_ring
     lower = (ctrl ^ g.box(-1e4, 1e4, -1e4, 1e4, -1e3, 0)) + dn_ring
-    return upper, lower
+    return g.drop_floating(upper), g.drop_floating(lower)

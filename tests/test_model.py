@@ -61,3 +61,19 @@ def test_wall_taper_planar():
         a = f.section(xs)[0] / 2
         k, b = np.polyfit(xs, a, 1)
         assert np.abs(a - (k * xs + b)).max() < 0.05
+
+
+def test_print_orientation_flat_bottom(parts):
+    """Flügel, Querruder und Leitwerk liegen mit einer ebenen Fläche auf dem Bett (keine schwebende Unterseite)."""
+    for p in parts:
+        if p.group not in ("Flügel", "Querruder", "Leitwerk"):
+            continue
+        tm = g.to_trimesh(p.print_mesh())
+        main = max(tm.split(only_watertight=False), key=lambda c: c.volume)
+        n, a = main.face_normals, main.area_faces
+        z = main.triangles[:, :, 2].max(axis=1)
+        down = n[:, 2] < -0.995
+        a03 = a[down & (z < 0.3)].sum()
+        a15 = a[down & (z < 1.5)].sum()
+        assert a03 > 500.0, (p.name, a03)                  # mind. 5 cm² Auflage
+        assert a03 >= 0.75 * a15, (p.name, a03, a15)       # Unterseite nicht schräg (Randbogen krümmt sich natürlich)

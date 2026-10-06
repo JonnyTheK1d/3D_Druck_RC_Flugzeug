@@ -245,3 +245,32 @@ def clean_trimesh(tm: trimesh.Trimesh, min_vol: float = 5.0, min_area: float = 2
         faces.append(np.asarray(c.faces) + off)
         off += len(c.vertices)
     return trimesh.Trimesh(np.vstack(verts), np.vstack(faces), process=False)
+
+
+def solid_components(tm: trimesh.Trimesh):
+    """(Festkörper-Komponenten, Hohlraum-Komponenten) eines Netzes; Splitter mit |V| < 1 mm³ werden ignoriert."""
+    comps = tm.split(only_watertight=False)
+    solids = [c for c in comps if c.volume > 1.0]
+    voids = [c for c in comps if c.volume < -1.0]
+    return solids, voids
+
+
+def drop_floating(m: Manifold) -> Manifold:
+    """Behält nur den größten Festkörper (plus eingeschlossene Hohlräume); entfernt schwebende Reste."""
+    tm = to_trimesh(m)
+    solids, voids = solid_components(tm)
+    if len(solids) <= 1:
+        return m
+    main = max(solids, key=lambda c: c.volume)
+    keep = [main] + voids
+    verts, faces, off = [], [], 0
+    for c in keep:
+        verts.append(np.asarray(c.vertices))
+        faces.append(np.asarray(c.faces) + off)
+        off += len(c.vertices)
+    out = Manifold(m3.Mesh(vert_properties=np.vstack(verts).astype(np.float32),
+                           tri_verts=np.vstack(faces).astype(np.uint32)))
+    removed = sum(c.volume for c in solids) - main.volume
+    if out.status() != m3.Error.NoError or abs(out.volume() - (m.volume() - removed)) > 0.002 * abs(m.volume()):
+        return m
+    return out

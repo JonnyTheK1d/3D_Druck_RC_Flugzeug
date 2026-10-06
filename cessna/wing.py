@@ -59,13 +59,29 @@ def wing_asm_T() -> np.ndarray:
     return g.translation(WING_LE_X, 0, WING_Z_REF) @ g.rot_y(WING_INCIDENCE, about=(50.0, 0, 0))
 
 
-def tilt_R(surf: Surface) -> np.ndarray:
-    return g.rot_y(surf.tilt_deg())
+def tilt_R(surf: Surface, y0: float | None = None, y1: float | None = None, mirror: bool = False) -> np.ndarray:
+    """Drehung, die die ebene Profilunterseite (Bodenebene) waagerecht auf das Druckbett legt.
+
+    Bei verjüngtem Flügel ist die Unterseite auch spanweise geneigt; sie ist dann eine Ebene
+    z = a*x + b*y + c, die hier per Ausgleichsrechnung bestimmt wird.
+    """
+    if y0 is None:
+        return g.rot_y(surf.tilt_deg())
+    pts = []
+    for y in np.linspace(y0 + 3.0, y1 - 3.0, 7):
+        c = surf.chord(y)
+        for xr in (0.45, 0.6, 0.8, 0.95):
+            pts.append((xr * c, y, surf._surf_z(xr * c, c, False)))
+    P = np.array(pts)
+    A = np.c_[P[:, 0], P[:, 1], np.ones(len(P))]
+    a, b, _ = np.linalg.lstsq(A, P[:, 2], rcond=None)[0]
+    n_out = np.array([a, -b if mirror else b, -1.0])           # nach unten zeigende Normale der Bodenebene
+    return g.rot_from_to(n_out, (0.0, 0.0, -1.0))
 
 
-def mirrored(part: Part, name: str) -> Part:
-    return Part(name, part.group, g.mirror_y(part.mesh), part.asm_T, part.print_R, part.qty,
-                part.material, part.note)
+def mirrored(part: Part, name: str, print_R: np.ndarray | None = None) -> Part:
+    return Part(name, part.group, g.mirror_y(part.mesh), part.asm_T, part.print_R if print_R is None else print_R,
+                part.qty, part.material, part.note)
 
 
 def build_wing() -> list[Part]:
@@ -91,8 +107,9 @@ def build_wing() -> list[Part]:
 
     # ---- Abschnitt 1 --------------------------------------------------------- #
     p = build_panel(surf, WING_CENTER_HALF, y1, spar=SPAR)
-    w1 = Part("W1_rechts", "Flügel", p["solid"], T, R)
-    parts += [w1, mirrored(w1, "W1_links")]
+    R1 = tilt_R(surf, WING_CENTER_HALF, y1)
+    w1 = Part("W1_rechts", "Flügel", p["solid"], T, R1)
+    parts += [w1, mirrored(w1, "W1_links", tilt_R(surf, WING_CENTER_HALF, y1, True))]
 
     # ---- Abschnitt 2: Servoschacht + Querruder A ---------------------------- #
     p = build_panel(surf, y1, y2, spar=SPAR)
@@ -100,17 +117,19 @@ def build_wing() -> list[Part]:
     fixed, ail_a, _ = control_surface(surf, solid, p["cav"], p["outer"], xh_fn, AIL_Y0, y2,
                                    gap_a=True, gap_b=False, cav_big=p["cav_big"])
     ail_a = add_horn_slot(surf, ail_a, p["outer"], xh_fn, AIL_SERVO_Y + 22.0)
-    w2 = Part("W2_rechts", "Flügel", fixed, T, R, note="mit Servoschacht für 9-g-Servo (Querruder)")
-    qa = Part("Q1_Querruder_innen_rechts", "Querruder", ail_a, T, R,
+    R2, R2m = tilt_R(surf, y1, y2), tilt_R(surf, y1, y2, True)
+    w2 = Part("W2_rechts", "Flügel", fixed, T, R2, note="mit Servoschacht für 9-g-Servo (Querruder)")
+    qa = Part("Q1_Querruder_innen_rechts", "Querruder", ail_a, T, tilt_R(surf, AIL_Y0, y2),
               note="Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben")
-    parts += [w2, mirrored(w2, "W2_links"), qa, mirrored(qa, "Q1_Querruder_innen_links")]
+    parts += [w2, mirrored(w2, "W2_links", R2m), qa, mirrored(qa, "Q1_Querruder_innen_links", tilt_R(surf, AIL_Y0, y2, True))]
 
     # ---- Abschnitt 3: Randbogen + Querruder B ------------------------------- #
     y_cap0 = y3 - 30.0
     p = build_panel(surf, y2, y_cap0, end1=False, cap_len=30.0, spar=SPAR)
     fixed, ail_b, _ = control_surface(surf, p["solid"], p["cav"], p["outer"], xh_fn, y2, AIL_Y1,
                                    gap_a=False, gap_b=True, cav_big=p["cav_big"])
-    w3 = Part("W3_rechts", "Flügel", fixed, T, R, note="mit abgerundetem Randbogen")
-    qb = Part("Q2_Querruder_aussen_rechts", "Querruder", ail_b, T, R)
-    parts += [w3, mirrored(w3, "W3_links"), qb, mirrored(qb, "Q2_Querruder_aussen_links")]
+    R3, R3m = tilt_R(surf, y2, y_cap0), tilt_R(surf, y2, y_cap0, True)
+    w3 = Part("W3_rechts", "Flügel", fixed, T, R3, note="mit abgerundetem Randbogen")
+    qb = Part("Q2_Querruder_aussen_rechts", "Querruder", ail_b, T, tilt_R(surf, y2, AIL_Y1))
+    parts += [w3, mirrored(w3, "W3_links", R3m), qb, mirrored(qb, "Q2_Querruder_aussen_links", tilt_R(surf, y2, AIL_Y1, True))]
     return parts

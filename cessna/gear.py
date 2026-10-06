@@ -16,7 +16,7 @@ from .parts import Part
 # --------------------------------------------------------------------------- #
 def tire(D=WHEEL_D, W=WHEEL_W, rim_d=38.0) -> Manifold:
     ri, ro = rim_d / 2, D / 2
-    cs = g.rounded_slot(ri, ro, -W / 2, W / 2, 5.0)
+    cs = g.rounded_slot(ri, ro, -W / 2, W / 2, 2.6)      # Seiten bleiben eben -> liegt flach auf dem Bett
     m = Manifold.revolve(cs, 96)               # Achse = Z, Mitte bei z = 0
     return m.translate((0, 0, 0))
 
@@ -90,7 +90,7 @@ def nose_gear_block() -> Part:
     blk = blk - bore
     for sy in (-1, 1):
         blk = blk - g.cyl((x0 - 1, sy * 8.0, 95.0), (x0 + 5, sy * 8.0, 95.0), 1.2, segs=16)
-    return Part("G5_Bugfahrwerkslager", "Fahrwerk", blk, np.eye(4), np.eye(4), material="PETG", infill=0.6,
+    return Part("G5_Bugfahrwerkslager", "Fahrwerk", blk, np.eye(4), g.rot_y(-90), material="PETG", infill=0.6,
                 note="auf Rumpfboden und Brandschott kleben; 3-mm-Federstahl, Messingrohr 4/3 optional")
 
 
@@ -154,7 +154,7 @@ def struts() -> list[Part]:
     # Stromlinienprofil: NACA-0040-artig (Ellipse mit spitzem Heck)
     prof = np.column_stack([chord / 2 * np.cos(th), thick / 2 * np.sin(th)])
     prof[:, 0] += 0.0
-    cs = CrossSection([g.ccw(prof)])
+    cs = CrossSection([g.ccw(prof)]) ^ CrossSection.square((chord + 2, thick - 1.0)).translate((-chord / 2 - 1, -(thick - 1.0) / 2))   # oben/unten abgeflacht
     body = Manifold.extrude(cs, L + 40.0)                    # Achse = Z
     # lokal: z = Achse, x = e2, y = e3
     Rm = np.eye(4)

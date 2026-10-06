@@ -349,4 +349,4 @@ def split_halves(solid: Manifold, outer: Manifold, surf: Surface, y0: float, y1:
     full = solid + ring                       # erst vereinigen, dann an z = 0 trennen (keine bündigen Flächen)
     upper = full ^ g.box(-1e4, 1e4, -1e4, 1e4, 0, 1e3)
     lower = full ^ g.box(-1e4, 1e4, -1e4, 1e4, -1e3, 0)
-    return g.difference(upper, *subtract), g.difference(lower, *subtract)
+    return g.drop_floating(g.difference(upper, *subtract)), g.drop_floating(g.difference(lower, *subtract))

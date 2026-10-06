@@ -49,6 +49,9 @@ def check_parts(parts: list[Part]) -> list[str]:
             problems.append(f"{p.name}: Volumen ~ 0")
         if not p.fits():
             problems.append(f"{p.name}: passt nicht auf das Druckbett {p.print_size().round(1)} > {BED}")
+        solids, _ = g.solid_components(g.to_trimesh(p.mesh))
+        if len(solids) != 1:
+            problems.append(f"{p.name}: {len(solids)} getrennte Festkörper (erwartet 1): {[round(c.volume) for c in solids]} mm³")
         tm = g.to_trimesh(p.print_mesh())
         if tm.vertices.min(axis=0)[2] < -1e-3:
             problems.append(f"{p.name}: Teil ragt unter die Druckbettebene")
@@ -222,6 +225,9 @@ def verify_exports(rows):
         lo, hi = tm.bounds
         if not wt:
             bad.append(f"{p.name}: STL nicht wasserdicht ({len(comps)} Komponenten)")
+        solids = [c for c in comps if c.volume > 1.0]
+        if len(solids) != 1:
+            bad.append(f"{p.name}: {len(solids)} getrennte Festkörper (erwartet 1) – Teile {[round(c.volume) for c in solids]} mm³")
         if len(comps) > 3:
             bad.append(f"{p.name}: {len(comps)} lose Komponenten")
         if vol <= 0:
