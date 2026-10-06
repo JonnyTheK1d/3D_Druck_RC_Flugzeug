@@ -41,6 +41,8 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 | Pfad | Inhalt |
 |---|---|
 | `stl/` | **Alle druckfertigen STL** (bereits in Druckausrichtung), nach Gruppen: `Fluegel/`, `Querruder/`, `Leitwerk/`, `Rumpf/`, `Antrieb/`, `Fahrwerk/`, `Streben/`, `Kleinteile/` |
+| `druckplatten/` | **34 fertig angeordnete Druckplatten (3MF)** für 220 × 220-mm-Betten, nach Material/Einstellung sortiert |
+| `docs/DRUCKPLATTEN.md` | Welche Platte mit welchem Material und welchen Slicer-Einstellungen |
 | `docs/DRUCKLISTE.md` | Teile, Stückzahl, Material, Druckgröße, Masse |
 | `docs/DRUCKEINSTELLUNGEN.md` | Material, Slicer-Einstellungen, Ausrichtung, Nacharbeit |
 | `docs/ZUKAUFTEILE.md` | Elektronik, Kohlefaser, Draht, Schrauben mit Maßen |
@@ -60,7 +62,9 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 1. **Material besorgen:** ca. 1 kg LW-PLA (Flügel/Rumpf/Leitwerk), etwas PETG, PLA und TPU → `docs/DRUCKEINSTELLUNGEN.md`.
 2. **Zukaufteile bestellen** → `docs/ZUKAUFTEILE.md` (Kohlefaser-Rohre 10/8 mm in 660 mm, Federstahldraht, 7 Mikroservos, …).
 3. **Zuerst `W0_Mittelstueck` drucken und wiegen** (Soll laut `docs/DRUCKLISTE.md`) – damit Flow/Temperatur für LW-PLA richtig stehen.
-4. Alle Teile drucken: STL liegen fertig ausgerichtet vor, **keine Stützen** außer optional unter der Flügelnase.
+4. Alle Teile drucken: die **3MF-Platten in `druckplatten/`** im Slicer öffnen (PrusaSlicer, Bambu Studio, OrcaSlicer, Cura),
+   Einstellungen laut `docs/DRUCKPLATTEN.md`, slicen, drucken. Alternativ Einzelteile aus `stl/`. **Keine Stützen** außer
+   optional unter der Flügelnase.
 5. Zusammenbau nach `docs/BAUANLEITUNG.md` (Flügel → Leitwerk → Rumpf → Antrieb → Fahrwerk → Endmontage).
 6. Fernsteuerung einbauen und programmieren → `docs/FERNSTEUERUNG.md` (Kanalplan, Gestängelängen, Ausschläge, Failsafe).
 7. Schwerpunkt einstellen (siehe Tabelle oben), Ruder prüfen, **vorsichtig** einfliegen.

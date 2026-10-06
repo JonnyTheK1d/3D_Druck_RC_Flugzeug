@@ -112,3 +112,24 @@ def test_bought_parts_do_not_collide(parts):
                 if any(bb[i] > pb[i + 3] or pb[i] > bb[i + 3] for i in range(3)):
                     continue
                 assert (m ^ b["mesh"]).volume() < 2.0, (b["node"], p.name)
+
+
+def test_print_plates_complete(parts, tmp_path):
+    """Die 3MF-Druckplatten enthalten jedes Teil in der richtigen Stückzahl, dicht und innerhalb des 220er-Betts."""
+    import trimesh
+    from cessna import plates
+    rows = build.export_stl(parts, str(tmp_path / "stl"))
+    pl = plates.make_plates(rows, str(tmp_path / "plates"))
+    count = {}
+    for p in pl:
+        for n in p["parts"]:
+            count[n] = count.get(n, 0) + 1
+        assert len({plates.profile_of(q) for q in parts if q.name in p["parts"]}) == 1, p["file"]
+        sc = trimesh.load(str(tmp_path / "plates" / p["file"]))
+        for gm in sc.dump():
+            assert gm.is_watertight, p["file"]
+            lo, hi = gm.bounds
+            assert lo[0] >= plates.MARGIN - 0.1 and lo[1] >= plates.MARGIN - 0.1, p["file"]
+            assert hi[0] <= plates.BED[0] - plates.MARGIN + 0.1 and hi[1] <= plates.BED[1] - plates.MARGIN + 0.1, p["file"]
+            assert abs(lo[2]) < 1e-3, p["file"]
+    assert count == {q.name: q.qty for q in parts}

@@ -273,6 +273,11 @@ def main():
                              os.path.join(DOC_DIR, "img", "fahrwerk_biegeschablone.png")) if os.makedirs(os.path.join(DOC_DIR, "img"), exist_ok=True) is None else None
         total = sum(os.path.getsize(path) for _, path in rows)
         print(f"STL exportiert: {len(rows)} Dateien, {total / 1e6:.1f} MB")
+        from . import plates
+        pl = plates.make_plates(rows, os.path.join(ROOT, "druckplatten"))
+        plates.plates_md(pl, os.path.join(DOC_DIR, "DRUCKPLATTEN.md"))
+        plates.overview_png(pl, os.path.join(DOC_DIR, "img", "druckplatten.png"))
+        print(f"Druckplatten (3MF): {len(pl)} Platten in druckplatten/")
     report.sync_docs(ROOT, parts, mass, np_, nums)
     from . import viewer
     vinfo = viewer.export_viewer(parts, os.path.join(DOC_DIR, "viewer"), mass, nums)

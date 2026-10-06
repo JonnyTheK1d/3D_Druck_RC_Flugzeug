@@ -1,5 +1,8 @@
 # Druckeinstellungen und Material
 
+> **Fertige Druckplatten:** `druckplatten/*.3mf` enthält alle Teile, nach Material und Einstellung sortiert und auf
+> 220 × 220 mm angeordnet. Übersicht und Einstellungen je Platte: [`DRUCKPLATTEN.md`](DRUCKPLATTEN.md).
+
 Alle STL-Dateien liegen in **Druckausrichtung** vor (kein Drehen nötig, Teile liegen auf z = 0). Größte Grundfläche:
 205 × 205 mm (Flügelabschnitte, Leitwerk), höchstes Teil 93 mm (Motorbock) → passt auf Betten ab **220 × 220 mm**
 (Ender 3, Prusa MK3/MK4, Bambu A1/P1 usw.). Jedes Teil hält mindestens 4 mm Rand ein.
