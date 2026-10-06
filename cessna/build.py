@@ -26,6 +26,7 @@ def build_all() -> list[Part]:
     parts += wing.build_wing()
     parts += tail.build_tail()
     parts += fuselage.build_fuselage()
+    parts.append(fuselage.dorsal_fin())
     parts.append(power.motor_mount())
     parts += power.spinner()
     parts += gear.build_gear()
@@ -273,6 +274,10 @@ def main():
         total = sum(os.path.getsize(path) for _, path in rows)
         print(f"STL exportiert: {len(rows)} Dateien, {total / 1e6:.1f} MB")
     report.sync_docs(ROOT, parts, mass, np_, nums)
+    from . import viewer
+    vinfo = viewer.export_viewer(parts, os.path.join(DOC_DIR, "viewer"), mass, nums)
+    viewer.write_index(os.path.join(DOC_DIR, "viewer"))
+    print(f"3D-Ansicht: {vinfo['objects']} Objekte, {vinfo['tris']} Dreiecke, {vinfo['size_mb']:.1f} MB")
     if not args.no_images:
         showcase.make_images(parts, os.path.join(DOC_DIR, "img"))
         showcase.contact_sheet(parts, os.path.join(DOC_DIR, "img", "teileuebersicht.png"))

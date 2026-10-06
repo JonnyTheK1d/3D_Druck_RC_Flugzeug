@@ -33,6 +33,9 @@ Teile: `W0` (Mitte), `W1`/`W2`/`W3` je links/rechts, 2× CFK-Rohr 10/8 × 660 mm
    1,6-mm-Fuge kleben; Ruder in der Mitte „biegen“, bis es leicht schwingt. Die Konstruktion lässt ±30° Ausschlag
    zu (virtuell geprüft).
 5. **Anlenkung.** Gestänge Ø 1,5 mm (ca. 60 mm) vom Servohebel zum Horn. Servohebel parallel zur Vorderkante in Mittelstellung.
+6. **Landeklappen.** `W1` hat einen zweiten Servoschacht (y = ±150 mm). Klappe `K1` genauso wie das Querruder mit
+   Gewebeband anschlagen, Horn in den Schlitz an der Unterseite (y = ±172 mm). Servo so einstellen, dass die Klappe
+   eingefahren bündig ist und bis **35° nach unten** fährt (die Konstruktion erlaubt ±35°).
 
 Optional: Flügel vor dem Verkleben auf Verzug prüfen (beide Spitzen müssen auf dem Richtbrett aufliegen).
 
@@ -104,11 +107,17 @@ sitzt der Lenkhebel `G6` mit M3-Madenschraube; Gestänge Ø 1,2 mm vom Bugradser
 
 Empfohlener Lenkausschlag ca. ±30°; Bugradservo über **Y-Kabel auf den Seitenruderkanal** legen.
 
+**Radverkleidungen (optional):** `G8` (Haupträder, je innen/außen) und `G9` (Bugrad) paarweise verkleben. Die
+Hauptrad-Verkleidung wird über das Drahtende geschoben (innen ist ein Schlitz für den Fahrwerksschenkel), Rad
+dazwischen, Stellring außen; die Verkleidung mit einem Tropfen Sekundenkleber am Draht gegen Verdrehen sichern.
+Die Bugrad-Verkleidung sitzt auf der Achse zwischen Gabel und Stellringen, die Gabel ragt oben durch den Schlitz.
+
 ## 6. Endmontage
 
 1. **Leitwerk:** Seitenflosse `S1` senkrecht von oben in den Schlitz der Heckwand (die untersten 12–18 mm der Flosse
    stecken im Heck) stecken, ausrichten (Lot, Draufsicht) und verkleben. Höhenflossenhälften seitlich an die Flosse
    und auf die Heckwand kleben; **Einstellwinkel 0°** gegenüber der Rumpf-Längsachse kontrollieren.
+   Zum Schluss die **Rückenflosse** `S3` mittig auf den Rumpfrücken (ab x = 690 mm) und an die Vorderkante der Seitenflosse kleben.
 2. **Flügel:** Auf den Sattel legen; 4× M3 × 20 durch die Dome in `W0` (x = 327 / 445 mm, y = ±38 mm) in die Spantbalken des Rumpfes
    schrauben. Servokabel in die Kabine führen.
 3. **Streben (optional):** `Z1_Strebe_rechts/links` mit Epoxy an die Rumpfseitenwand (z = 110 mm) und die Flügelunterseite
@@ -122,9 +131,9 @@ Empfohlener Lenkausschlag ca. ±30°; Bugradservo über **Y-Kabel auf den Seiten
 <!-- AUTO:schwerpunkt -->
 | Größe | Wert |
 |---|---|
-| **Schwerpunkt** | **58 mm hinter der Flügelvorderkante** (Rechenwert 353 mm hinter der Haubenvorderkante); zulässig: 44–65 mm = 24–35 % MAC |
+| **Schwerpunkt** | **60 mm hinter der Flügelvorderkante** (Rechenwert 355 mm hinter der Haubenvorderkante); zulässig: 44–65 mm = 24–35 % MAC |
 | MAC | 185 mm |
-| Auswiegen | Flugzeug an den Punkten bei **x = 353 mm** (am Rumpf von der Haubenvorderkante gemessen) unterstützen, Nase leicht unten |
+| Auswiegen | Flugzeug an den Punkten bei **x = 355 mm** (am Rumpf von der Haubenvorderkante gemessen) unterstützen, Nase leicht unten |
 <!-- /AUTO:schwerpunkt -->
 
 Ist die Nase zu leicht: Akku nach vorn, bei Bedarf Trimmblei (Klett) im Bug (Motorhaube); 20 g im Bug verschieben den
@@ -135,6 +144,7 @@ Schwerpunkt um ca. 4 mm nach vorn.
 | Querruder | ± 14° (niedrig ± 9°) | 30 % |
 | Höhenruder | ± 12° | 25 % |
 | Seitenruder | ± 20° | 20 % |
+| Landeklappen | Start 15°, Landung 30–35° (nach unten); Höhenruder bei Klappe ggf. 2–3° tiefer mischen | – |
 | Bugrad | ± 30° (Mischung mit Seite) | – |
 
 Gaskurve/Motor: Erst ohne Luftschraube prüfen (Drehrichtung, Failsafe). Reichweite testen.

@@ -1,6 +1,6 @@
 # 1:8 RC-Flugzeug im Stil einer Cessna 172 – zum Selbstdrucken
 
-Einmotoriger Hochdecker (Tragflächenstreben, Bugradfahrwerk, Zugpropeller) im Maßstab **1:8** einer Cessna 172,
+Einmotoriger Hochdecker (Tragflächenstreben, Landeklappen, Bugradfahrwerk mit Radverkleidungen, Rückenflosse, Zugpropeller) im Maßstab **1:8** einer Cessna 172,
 vollständig als **druckbare STL-Dateien** für Drucker ab **220 × 220 mm** Druckbett, parametrisch erzeugt (Python).
 
 ![Übersicht](docs/img/uebersicht.png)
@@ -17,14 +17,14 @@ vollständig als **druckbare STL-Dateien** für Drucker ab **220 × 220 mm** Dru
 | Spannweite / Länge / Höhe | **1375 mm** / ca. 1030 mm (mit Spinner) / 340 mm |
 | Flügel | NACA 2412 (Unterseite ab 25 % eben, druckfreundlich), Tiefe 200 → 140 mm, **25,2 dm²**, Streckung 7,5, 2° Einstellwinkel |
 | Leitwerk | Höhenleitwerk 425 mm (NACA 0010), Seitenleitwerk 175 mm hoch (NACA 0009) |
-| Steuerung | Quer-, Höhen-, Seitenruder, Gas, steuerbares Bugrad (5 Servos 9 g) |
+| Steuerung | Quer-, Höhen-, Seitenruder, **Landeklappen**, Gas, steuerbares Bugrad (7 Servos 9 g) |
 | Antrieb (Empfehlung) | Außenläufer 28xx ≈ 1000 kV, 30-A-Regler, 3S 2200 mAh, Luftschraube 10×6″ |
 <!-- AUTO:eckdaten -->
-| Abfluggewicht (Schätzung) | **≈ 1,6 kg** (1,09 kg gedruckt + 0,53 kg Elektronik/Kohlefaser) |
-| Flächenbelastung | ≈ 64 g/dm², Überziehgeschwindigkeit ≈ 9 m/s |
-| Schwerpunkt (Rechenwert) | 58 mm hinter der Flügelvorderkante ≈ **31 % MAC**, Stabilitätsmaß ≈ 14 % MAC |
-| Druckteile | **48 STL-Dateien / 55 Drucke**, größte Grundfläche 205 × 205 mm, höchstes Teil 93 mm |
-| Material | ca. 937 g **LW-PLA**, 71 g PETG, 46 g PLA, 35 g TPU (siehe `docs/DRUCKEINSTELLUNGEN.md`) |
+| Abfluggewicht (Schätzung) | **≈ 1,7 kg** (1,14 kg gedruckt + 0,55 kg Elektronik/Kohlefaser) |
+| Flächenbelastung | ≈ 67 g/dm², Überziehgeschwindigkeit ≈ 9 m/s |
+| Schwerpunkt (Rechenwert) | 60 mm hinter der Flügelvorderkante ≈ **32 % MAC**, Stabilitätsmaß ≈ 13 % MAC |
+| Druckteile | **57 STL-Dateien / 64 Drucke**, größte Grundfläche 205 × 205 mm, höchstes Teil 93 mm |
+| Material | ca. 986 g **LW-PLA**, 71 g PETG, 46 g PLA, 35 g TPU (siehe `docs/DRUCKEINSTELLUNGEN.md`) |
 <!-- /AUTO:eckdaten -->
 
 Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu geschrieben).
@@ -48,6 +48,7 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 | `docs/fahrwerk_biegeschablone.pdf` | Biegeschablone Hauptfahrwerk **1:1** (A4 quer) |
 | `docs/stueckliste.csv`, `docs/kennzahlen.json` | Teileliste (CSV), Kennzahlen |
 | `docs/img/` | Bilder (Ansichten, Explosionszeichnung, Teile-Übersicht) |
+| `docs/viewer/` | **3D-Ansicht im Browser** (`index.html` öffnen, siehe unten) |
 | `cessna/` | Generator (Python): Maße in `params.py`, Geometrie in `wing.py`, `fuselage.py`, `tail.py`, … |
 | `tests/` | Automatische Prüfungen |
 
@@ -62,6 +63,15 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 5. Zusammenbau nach `docs/BAUANLEITUNG.md` (Flügel → Leitwerk → Rumpf → Antrieb → Fahrwerk → Endmontage).
 6. Schwerpunkt einstellen (58 mm hinter der Flügelvorderkante), Ruder einstellen, **vorsichtig** einfliegen.
 
+## 3D-Ansicht im Browser
+
+`docs/viewer/index.html` zeigt das komplette Flugzeug interaktiv (drehen, zoomen, Explosionsansicht, Baugruppen
+ein-/ausblenden, Ruder bewegen). Wegen der Browser-Sicherheit die Seite über einen kleinen Webserver öffnen:
+
+```bash
+python -m http.server -d docs/viewer 8000   # dann http://localhost:8000 aufrufen
+```
+
 ## Konstruktionsprinzip
 
 * **Hohlbauweise für LW-PLA:** Außenhaut 1,1 mm (Flügel), 1,2 mm (Rumpf), 0,85 mm (Leitwerk) mit Rippen/Spanten;
@@ -73,6 +83,8 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
   (Einschub von der Kabine aus) → wenige bewegliche Teile, Akku in Schwerpunktnähe.
 * **Ruder mit Rundnase + Hohlkehle:** Querruder, Höhen- und Seitenruder lassen sich in der CAD-Prüfung um ±30° ausschlagen,
   ohne an Festteile zu stoßen (Scharnier: Gewebeband beidseitig).
+* **Landeklappen** im Innenflügel (0–35° nach unten, eigenes Servo je Seite), **Radverkleidungen** für alle drei Räder
+  und eine **Rückenflosse** wie bei der späten 172 – alle drei optional, aber typisch Cessna.
 * **Fenster** sind als flache Gravuren (Lackiermaske) in den Rumpf eingearbeitet; Streben sind kosmetisch.
 * **Druckfreundlich:** Alle Rumpfwände sind eben (stückweise linear verjüngt), damit sie flach auf dem Bett liegen; Teile
   sind so geteilt, dass keine Stützen nötig sind.
@@ -81,7 +93,7 @@ Die Auswertung stammt aus `docs/kennzahlen.json` (wird beim Generieren neu gesch
 
 * alle Teile gültige geschlossene Volumenkörper, passen auf 220 × 220 × 250 mm (mit 4 mm Rand);
 * **keine Überschneidungen** im Zusammenbau (paarweise Prüfung, inkl. Sättel für Flügel/Leitwerk);
-* Ruderfreigang ±30°; Holm liegt innerhalb des Profils;
+* Ruderfreigang ±30° (Landeklappen ±35°); Holm liegt innerhalb des Profils;
 * Schwerpunkt 22–34 % MAC, Stabilitätsmaß ≥ 8 %, Hauptfahrwerk ≥ 15 mm hinter dem Schwerpunkt;
 * STL-Export wasserdicht (nach Rundung auf float32, wie beim Slicer), Einzelteile mit Boden auf z = 0.
 
@@ -103,7 +115,7 @@ Teilung (Segmentgrenzen in `FUSE_SEGMENTS`, Abschnittsbreite `WING_PANEL_SPAN`);
 * **Nicht geflogen.** Neutralpunkt/Stabilität sind Näherungsrechnungen (Standardmethode), keine Strömungsrechnung.
 * Gewichte sind aus dem Volumen geschätzt (LW-PLA 0,55 g/cm³). Echte Teile können ±20 % abweichen → Schwerpunkt nach dem Bau
   ausmessen (Akkulage, Trimmblei im Bug).
-* Der Flügel ist **einteilig** (1375 mm), nicht teilbar. Keine Klappen, keine Radverkleidungen, keine Dreiecksfenster.
+* Der Flügel ist **einteilig** (1375 mm), nicht teilbar. Die Landeklappen sind einfache Drehklappen (keine Fowler-Klappen wie beim Original).
 * Profil weicht für den Druck vom Original ab (flache Unterseite hinter 25 % Tiefe); die Nasenunterseite braucht ggf. einen
   kleinen Stützkeil oder Brim.
 * Die Streben sind nur aufgeklebt (kosmetisch). Die Ruderscharniere sind Gewebeband (kein Kugelscharnier).

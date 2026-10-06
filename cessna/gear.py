@@ -186,5 +186,60 @@ def struts() -> list[Part]:
     return [asm_right, left]
 
 
+def _pant_rings(half_w, half_h, wall=0.0, n=40, M=48):
+    xs = np.linspace(-46.0, 60.0, n)
+    rings = []
+    th = np.linspace(0, 2 * np.pi, M, endpoint=False)
+    for x in xs:
+        t = (x + 46.0) / 106.0
+        if t < 0.36:
+            f = np.sqrt(max(1.0 - ((t - 0.36) / 0.36) ** 2, 0.0))
+        else:
+            f = 1.0 - ((t - 0.36) / 0.64) ** 2
+        f = max(f, 0.12)
+        b = max(half_w * f ** 0.8 - wall, 0.3)
+        h = max(half_h * f - wall, 0.3)
+        zc = 1.0 + 4.0 * t
+        rings.append(np.column_stack([np.full(M, x), b * np.cos(th), zc + h * np.sin(th)]))
+    return np.array(rings)
+
+
+def wheel_pant(half_w: float, nose: bool) -> Manifold:
+    """Radverkleidung um ein Rad (Radmitte im Ursprung, Achse = y)."""
+    outer = g.loft_rings(_pant_rings(half_w, PANT_HALF_H))
+    inner = g.loft_rings(_pant_rings(half_w, PANT_HALF_H, wall=1.0)[1:-1])
+    m = (outer - inner) ^ g.box(-100, 100, -100, 100, PANT_BOTTOM, 100)
+    if nose:
+        m = m - g.box(-8.5, 8.5, -16.5, 16.5, 12.0, 80.0)                     # Gabel kommt von oben
+        m = m - g.cyl((0, -40, 0), (0, 40, 0), 1.6, segs=24)                   # Achse Ø3
+    else:
+        m = m - g.cyl((0, -40, 0), (0, 40, 0), 2.2, segs=24)                   # Achse Ø4 (Drahtende)
+        d = np.array([0.0, -67.0, 48.5]) / np.linalg.norm([0.0, -67.0, 48.5])  # Richtung Fahrwerksschenkel
+        m = m - g.cyl((0, -6.0, 0), np.array([0, -6.0, 0]) + 30 * d, 2.8, segs=24)
+    return m
+
+
+def wheel_pants() -> list[Part]:
+    zc = WHEEL_D / 2
+    parts = []
+    main = wheel_pant(PANT_HALF_W_MAIN, nose=False)
+    up = main ^ g.box(-100, 100, 0, 100, -100, 100)          # außen (rechte Seite)
+    dn = main ^ g.box(-100, 100, -100, 0, -100, 100)         # innen (rechte Seite)
+    Tr = g.translation(MAIN_GEAR_X, MAIN_GEAR_TRACK_HALF, zc)
+    Tl = g.translation(MAIN_GEAR_X, -MAIN_GEAR_TRACK_HALF, zc)
+    note = "Radverkleidung (optional); Hälften verkleben, auf Achse stecken, mit Sekundenkleber am Draht sichern"
+    parts += [Part("G8_Radverkleidung_rechts_aussen", "Fahrwerk", up, Tr, g.rot_x(90), note=note),
+              Part("G8_Radverkleidung_rechts_innen", "Fahrwerk", dn, Tr, g.rot_x(-90), note=note),
+              Part("G8_Radverkleidung_links_aussen", "Fahrwerk", g.mirror_y(up), Tl, g.rot_x(-90), note=note),
+              Part("G8_Radverkleidung_links_innen", "Fahrwerk", g.mirror_y(dn), Tl, g.rot_x(90), note=note)]
+    nose = wheel_pant(PANT_HALF_W_NOSE, nose=True)
+    Tn = g.translation(NOSE_GEAR_X, 0, zc)
+    parts += [Part("G9_Radverkleidung_Bug_rechts", "Fahrwerk", nose ^ g.box(-100, 100, 0, 100, -100, 100), Tn, g.rot_x(90),
+                   note="Bugrad-Verkleidung (optional); Achse Ø3 geht durch Gabel und Verkleidung"),
+              Part("G9_Radverkleidung_Bug_links", "Fahrwerk", nose ^ g.box(-100, 100, -100, 0, -100, 100), Tn, g.rot_x(-90),
+                   note="Bugrad-Verkleidung (optional)")]
+    return parts
+
+
 def build_gear() -> list[Part]:
-    return wheels() + main_gear_clamp() + [nose_gear_block(), steering_collar(), nose_fork()] + struts()
+    return wheels() + main_gear_clamp() + [nose_gear_block(), steering_collar(), nose_fork()] + wheel_pants() + struts()

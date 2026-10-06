@@ -34,6 +34,12 @@ def hinge_clearance(parts: list[Part], angles=(-30, -25, 25, 30)) -> list[tuple]
         for a in angles:
             out.append((ail, a, (F ^ _rot_about_axis(A, p0, p1, a)).volume()))
 
+    # --- Landeklappe (rechts): 0 .. FLAP_DOWN_MAX nach unten (beide Drehrichtungen geprüft) --- #
+    p0, p1 = sf.pivot_axis(surf, xh, FLAP_Y0, FLAP_Y1)
+    F, A = P["W1_rechts"].mesh, P["K1_Landeklappe_rechts"].mesh
+    for a in (-FLAP_DOWN_MAX, -15, 15, FLAP_DOWN_MAX):
+        out.append(("K1_Landeklappe_rechts", a, (F ^ _rot_about_axis(A, p0, p1, a)).volume()))
+
     # --- Höhenruder (rechts) ---------------------------------------------------- #
     s = tail.stab_surface()
     xe = lambda y: s.x_le(y) + (1 - ELEV_FRAC) * tail.stab_chord(y)

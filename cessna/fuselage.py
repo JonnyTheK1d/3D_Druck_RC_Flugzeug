@@ -411,3 +411,29 @@ def build_fuselage() -> list[Part]:
         parts.append(Part(f"{name}_rechts", "Rumpf", right, np.eye(4), g.rot_x(-90) @ g.rot_z(-phi), note=note))
         parts.append(Part(f"{name}_links", "Rumpf", left, np.eye(4), g.rot_x(90) @ g.rot_z(phi), note=note))
     return parts
+
+
+# --------------------------------------------------------------------------- #
+# Rückenflosse (separates, flach gedrucktes Teil)
+# --------------------------------------------------------------------------- #
+def dorsal_fin() -> Part:
+    def fin_le(z):
+        return FIN_ROOT_LE + (FIN_TIP_LE - FIN_ROOT_LE) / FIN_HEIGHT * (z - FIN_BASE_Z)
+    x0 = DORSAL_X0
+    zt0 = float(section(x0)[2][0])
+    x_top = fin_le(DORSAL_TOP) + 3.0
+    zb_end = float(section(x_top)[2][0])
+    xs = np.linspace(x0, x_top, 30)
+    bottom = [(x, float(section(x)[2][0]) - 5.0) for x in xs]
+    u = np.linspace(0.0, 1.0, 30)
+    top = [(x_top + (x0 - x_top) * ui, zt0 + (DORSAL_TOP - zt0) * (1.0 - ui) ** 2.2) for ui in u]
+    pts = bottom + top
+    m = Manifold.extrude(CrossSection([g.ccw(pts)]), DORSAL_T)          # Ebene (x, z), Dicke -> y
+    m = g.apply(m, g.rot_x(90)).translate((0, DORSAL_T / 2, 0))
+    # unten an die Rumpfrundung angepasst, vorn an die Flossenvorderkante (0,3 mm Spalt)
+    fin_o = tail_mod.fin_outer_asm()
+    fin_c = g.union([fin_o, fin_o.translate((-0.3, 0, 0)), fin_o.translate((0, 0.3, 0)), fin_o.translate((0, -0.3, 0))])
+    m = m - body(x0 - 5, x_top + 5, -0.2) - fin_c
+    m = g.drop_floating(m)
+    return Part("S3_Rueckenflosse", "Leitwerk", m, np.eye(4), g.rot_x(90), material="LW-PLA",
+                note="flach drucken; auf den Rumpfrücken (F5) und an die Vorderkante der Seitenflosse kleben")

@@ -45,6 +45,9 @@ HINGE_GAP = 1.6
 SERVO_9G = dict(L=23.2, W=12.4, H=22.8, flange_L=32.5, flange_T=2.4, flange_off=6.0)
 AIL_SERVO_Y = 352.0                 # Servomitte (spannweitig)
 AIL_SERVO_X = 80.0                  # Servomitte hinter der Vorderkante
+FLAP_Y0, FLAP_Y1 = 84.0, 278.5      # Landeklappe (im Abschnitt W1, gleiche Scharnierlinie wie Querruder)
+FLAP_SERVO_Y = 150.0                # Servomitte Klappenservo
+FLAP_DOWN_MAX = 35.0                # maximaler Klappenausschlag nach unten (Grad)
 WING_BOLT_X = (32.0, 150.0)         # Schraubenpositionen hinter der Flügelvorderkante
 WING_BOLT_Y = 38.0                  # +/- y der Flügelschrauben (M3)
 STRUT_Y = 282.5                     # Strebenansatz am Flügel (Plattenstoß)
@@ -97,6 +100,10 @@ FRAME_X = (165.0, WING_LE_X, WING_LE_X + 110.0, WING_LE_X + 200.0, 580.0, 640.0,
 FRAME_T = 1.2
 FRAME_W = 6.0
 
+DORSAL_X0 = 690.0                   # Rückenflosse beginnt hier auf dem Rumpfrücken
+DORSAL_TOP = 212.0                  # und endet an der Flossenvorderkante in dieser Höhe
+DORSAL_T = 5.0                      # Dicke
+
 # --------------------------------------------------------------------------- #
 # Antrieb
 # --------------------------------------------------------------------------- #
@@ -148,6 +155,10 @@ GEAR_WIRE_NOSE = 3.0
 NOSE_GEAR_X = 150.0
 NOSE_WIRE_Z_TOP = 110.0             # oberes Ende der Bugfahrwerksachse (Steuerhebel)
 NOSE_WHEEL_D = 50.0
+PANT_HALF_W_MAIN = 14.5             # Radverkleidung: halbe Außenbreite Hauptrad
+PANT_HALF_W_NOSE = 20.0             # Bugrad (Gabel liegt innen)
+PANT_HALF_H = 33.0
+PANT_BOTTOM = -13.0                 # Unterkante relativ zur Radmitte (Rad schaut unten heraus)
 STRUT_Y_FUSE = 75.0                 # Strebenfuß an der Rumpfseite
 STRUT_Z_FUSE = 110.0
 
@@ -162,6 +173,8 @@ BOUGHT_PARTS = {
     "Empfänger":               (8, 240),
     "Servo Querruder links":   (9, WING_LE_X + AIL_SERVO_X),
     "Servo Querruder rechts":  (9, WING_LE_X + AIL_SERVO_X),
+    "Servo Klappe links":      (9, WING_LE_X + AIL_SERVO_X),
+    "Servo Klappe rechts":     (9, WING_LE_X + AIL_SERVO_X),
     "Servo Höhe":              (9, 538),
     "Servo Seite":             (9, 538),
     "Servo Bugrad":            (9, 190),

@@ -107,9 +107,16 @@ def build_wing() -> list[Part]:
 
     # ---- Abschnitt 1 --------------------------------------------------------- #
     p = build_panel(surf, WING_CENTER_HALF, y1, spar=SPAR)
+    solid = add_servo_box(surf, p["solid"], p["outer"], FLAP_SERVO_Y, AIL_SERVO_X)
+    fixed, flap, _ = control_surface(surf, solid, p["cav"], p["outer"], xh_fn, FLAP_Y0, FLAP_Y1,
+                                     gap_a=True, gap_b=True, cav_big=p["cav_big"])
+    flap = add_horn_slot(surf, flap, p["outer"], xh_fn, FLAP_SERVO_Y + 22.0)
     R1 = tilt_R(surf, WING_CENTER_HALF, y1)
-    w1 = Part("W1_rechts", "Flügel", p["solid"], T, R1)
-    parts += [w1, mirrored(w1, "W1_links", tilt_R(surf, WING_CENTER_HALF, y1, True))]
+    w1 = Part("W1_rechts", "Flügel", fixed, T, R1, note="mit Servoschacht für das Klappenservo")
+    lk = Part("K1_Landeklappe_rechts", "Querruder", flap, T, tilt_R(surf, FLAP_Y0, FLAP_Y1),
+              note="Landeklappe 0..35° nach unten; Horn-Schlitz an der Unterseite")
+    parts += [w1, mirrored(w1, "W1_links", tilt_R(surf, WING_CENTER_HALF, y1, True)),
+              lk, mirrored(lk, "K1_Landeklappe_links", tilt_R(surf, FLAP_Y0, FLAP_Y1, True))]
 
     # ---- Abschnitt 2: Servoschacht + Querruder A ---------------------------- #
     p = build_panel(surf, y1, y2, spar=SPAR)

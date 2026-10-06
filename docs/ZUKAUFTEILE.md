@@ -20,12 +20,13 @@ Schub/Gewicht ≈ 0,5–0,6.
 
 | Teil | Hinweis | Menge |
 |---|---|---:|
-| Empfänger | mind. 5 Kanäle (Quer, Höhe, Seite, Gas; Querruder über Y-Kabel oder 2 Kanäle) | 1 |
-| Servos 9 g | Mikroservos mit Metallgetriebe für Seite/Höhe empfohlen; **Abmessungen 23 × 12,4 × 22,8 mm, Flansch 32,5 mm** | 5 |
-| Servo-Verlängerung | ca. 300 mm für die Querruder (Wurzel → Kabine), Y-Kabel | 2 |
+| Empfänger | mind. 6 Kanäle (Quer, Höhe, Seite, Gas, Klappen; Querruder über Y-Kabel oder 2 Kanäle) | 1 |
+| Servos 9 g | Mikroservos mit Metallgetriebe für Seite/Höhe empfohlen; **Abmessungen 23 × 12,4 × 22,8 mm, Flansch 32,5 mm** | 7 |
+| Servo-Verlängerung | ca. 300 mm für die Querruder, ca. 150 mm für die Klappen (→ Kabine) | 4 |
+| Y-Kabel | Landeklappen (beide Servos auf einen Kanal; ein Servo ggf. umgedreht montiert/umgepolt per Servo-Reverser) | 1 |
 | Y-Kabel | Bugradlenkung auf dem Seitenruder-Kanal mitführen | 1 |
 
-Servo-Verteilung: 2× Querruder (im Flügel, Abtrieb nach unten), 1× Höhenruder (Rumpf links, Heck),
+Servo-Verteilung: 2× Querruder und 2× Landeklappe (im Flügel, Abtrieb nach unten), 1× Höhenruder (Rumpf links, Heck),
 1× Seitenruder (Rumpf rechts, Heck), 1× Bugradlenkung (Bug links).
 
 ## Kohlefaser / Draht (Zuschnitt in mm)
@@ -37,12 +38,12 @@ Servo-Verteilung: 2× Querruder (im Flügel, Abtrieb nach unten), 1× Höhenrude
 | CFK-Stab Ø 4 mm | 395 | 1 | Holm Höhenflosse (durch beide Hälften) |
 | CFK-Stab Ø 2 mm | 370 | 1 | Höhenruder-Verbindung (durch beide Nasen) |
 | CFK-Stab/Stahl Ø 2 mm | je ca. 340 | 2 | Gestänge Höhen-/Seitenruder im Rumpf (ab Servo) |
-| Stahldraht Ø 1,5 mm | je ca. 60 | 2 | Gestänge Querruder (mit Gabelkopf) |
+| Stahldraht Ø 1,5 mm | je ca. 60 | 4 | Gestänge Querruder und Landeklappen (mit Gabelkopf) |
 | Stahldraht Ø 1,5 mm | je ca. 40 | 2 | Z-Bügel Heck (Austritt Rumpf → Horn) |
 | Stahldraht Ø 1,2 mm | ca. 45 | 1 | Bugradlenkung (Servo → Lenkhebel) |
 | **Federstahldraht Ø 4 mm** | **ca. 390** | 1 | Hauptfahrwerk, nach Biegeschablone `docs/fahrwerk_biegeschablone.pdf` |
 | Federstahldraht Ø 3 mm | ca. 56 | 1 | Bugfahrwerk (gerade, in die Gabel geklebt) |
-| Stahlstab Ø 3 mm | ca. 36 | 1 | Bugrad-Achse |
+| Stahlstab Ø 3 mm | ca. 44 | 1 | Bugrad-Achse (durch Gabel und Radverkleidung) |
 | Stahlstab Ø 4 mm | ca. 35 je | 2 | Radachsen = Enden des Fahrwerksdrahts (kein extra Teil) |
 | Stellringe Ø 3 / Ø 4 mm | | je 4 | Räder sichern |
 
@@ -58,7 +59,7 @@ Servo-Verteilung: 2× Querruder (im Flügel, Abtrieb nach unten), 1× Höhenrude
 | M3 × 12 Blechschraube | 2 | Hauptfahrwerks-Klemme |
 | M3 × 4 Madenschraube | 1 | Lenkhebel auf dem Bugfahrwerksdraht |
 | M2 × 8 Blechschraube | 10 | 5 Servos (je 2) |
-| Gabelköpfe M2 / Rudermaschinen-Ersatz | 5 | Gestänge |
+| Gabelköpfe M2 | 7 | Gestänge |
 | Scharnierband / transparentes Gewebeband 25 mm | ca. 3 m | Ruderscharniere (beidseitig) |
 | Epoxy 30 min, dünnflüssiger Sekundenkleber + Aktivator | | Verklebung (siehe Bauanleitung) |
 | Klett / Akkugurt | | Akku, Regler, Empfänger |

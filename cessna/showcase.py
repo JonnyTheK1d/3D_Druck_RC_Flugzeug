@@ -20,6 +20,12 @@ COL = {
 def color_of(p: Part) -> str:
     if p.group == "Leitwerk" and ("Hoehenruder" in p.name or "Seitenruder" in p.name):
         return COL["Querruder"]
+    if p.name.startswith(("G8_", "G9_")):
+        return COL["Rumpf"]
+    if p.name.startswith("S3_"):
+        return COL["Rumpf"]
+    if p.name.startswith("K1_"):
+        return COL["Querruder"]
     if p.name.startswith("G1_"):
         return "#202225"
     if p.name.startswith("G2_"):
@@ -80,8 +86,14 @@ def explode_offset(name: str):
         return (-60, 0, 0)
     if n.startswith("P2") or n.startswith("P3"):
         return (-100, 0, 0)
+    if n.startswith(("G8", "G9")):
+        return (0, side * 30 if "Bug" not in n else (25 if "rechts" in n else -25), -55)
     if n.startswith("G"):
         return (0, 0, -55)
+    if n.startswith("K1"):
+        return (45, side * 45, 70)
+    if n.startswith("S3"):
+        return (-30, 0, 30)
     if n.startswith("Z"):
         return (0, side * 70, -30)
     return (0, 0, 0)

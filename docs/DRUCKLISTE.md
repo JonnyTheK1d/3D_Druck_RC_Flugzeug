@@ -8,8 +8,8 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 | Teil | Menge | Material | Größe x·y·z [mm] | Masse [g] | Hinweis |
 |---|---:|---|---|---:|---|
 | `W0_Mittelstueck` | 1 | LW-PLA | 200 · 160 · 24 | 57.5 | 4 Schraubendome für M3, Kabelaustritt unten |
-| `W1_rechts` | 1 | LW-PLA | 200 · 203 · 24 | 69.4 |  |
-| `W1_links` | 1 | LW-PLA | 200 · 203 · 24 | 69.4 |  |
+| `W1_rechts` | 1 | LW-PLA | 200 · 203 · 24 | 54.6 | mit Servoschacht für das Klappenservo |
+| `W1_links` | 1 | LW-PLA | 200 · 203 · 24 | 54.6 | mit Servoschacht für das Klappenservo |
 | `W2_rechts` | 1 | LW-PLA | 200 · 204 · 24 | 52.5 | mit Servoschacht für 9-g-Servo (Querruder) |
 | `W2_links` | 1 | LW-PLA | 200 · 204 · 24 | 52.5 | mit Servoschacht für 9-g-Servo (Querruder) |
 | `W3_rechts` | 1 | LW-PLA | 147 · 203 · 20 | 41.6 | mit abgerundetem Randbogen |
@@ -19,6 +19,8 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 
 | Teil | Menge | Material | Größe x·y·z [mm] | Masse [g] | Hinweis |
 |---|---:|---|---|---:|---|
+| `K1_Landeklappe_rechts` | 1 | LW-PLA | 64 · 191 · 14 | 30.5 | Landeklappe 0..35° nach unten; Horn-Schlitz an der Unterseite |
+| `K1_Landeklappe_links` | 1 | LW-PLA | 64 · 191 · 14 | 30.5 | Landeklappe 0..35° nach unten; Horn-Schlitz an der Unterseite |
 | `Q1_Querruder_innen_rechts` | 1 | LW-PLA | 78 · 154 · 14 | 21.5 | Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben |
 | `Q1_Querruder_innen_links` | 1 | LW-PLA | 78 · 154 · 14 | 21.5 | Horn-Schlitz an der Unterseite; mit Q2 zu einem Ruder verkleben |
 | `Q2_Querruder_aussen_rechts` | 1 | LW-PLA | 71 · 164 · 12 | 18.3 |  |
@@ -40,6 +42,7 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 | `S1_Seitenflosse_unten` | 1 | LW-PLA | 205 · 175 · 9 | 9.8 | unterste 15 mm stecken im Heck (Schlitz im Rumpf) |
 | `S2_Seitenruder_oben` | 1 | LW-PLA | 90 · 116 · 7 | 7.8 |  |
 | `S2_Seitenruder_unten` | 1 | LW-PLA | 90 · 116 · 7 | 8.0 |  |
+| `S3_Rueckenflosse` | 1 | LW-PLA | 112 · 28 · 5 | 2.3 | flach drucken; auf den Rumpfrücken (F5) und an die Vorderkante der Seitenflosse kleben |
 
 ## Kleinteile
 
@@ -83,6 +86,12 @@ Masse = Schätzung aus dem Modellvolumen (LW-PLA 0,55 g/cm³ als Hohlschale; Mas
 | `G5_Bugfahrwerkslager` | 1 | PETG | 28 · 26 · 35 | 17.4 | auf Rumpfboden und Brandschott kleben; 3-mm-Federstahl, Messingrohr 4/3 optional |
 | `G6_Lenkhebel` | 1 | PETG | 22 · 10 · 9 | 1.2 | M3-Madenschraube klemmt auf dem 3-mm-Bugfahrwerksdraht |
 | `G7_Bugradgabel` | 1 | PETG | 16 · 30 · 52 | 11.8 | Bruecke liegt auf dem Druckbett; 3-mm-Draht einkleben, Achse 3-mm-Stab (Stellringe) |
+| `G8_Radverkleidung_rechts_aussen` | 1 | LW-PLA | 106 · 48 · 14 | 2.4 | Radverkleidung (optional); Hälften verkleben, auf Achse stecken, mit Sekundenkleber am Draht sichern |
+| `G8_Radverkleidung_rechts_innen` | 1 | LW-PLA | 106 · 48 · 14 | 2.4 | Radverkleidung (optional); Hälften verkleben, auf Achse stecken, mit Sekundenkleber am Draht sichern |
+| `G8_Radverkleidung_links_aussen` | 1 | LW-PLA | 106 · 48 · 14 | 2.4 | Radverkleidung (optional); Hälften verkleben, auf Achse stecken, mit Sekundenkleber am Draht sichern |
+| `G8_Radverkleidung_links_innen` | 1 | LW-PLA | 106 · 48 · 14 | 2.4 | Radverkleidung (optional); Hälften verkleben, auf Achse stecken, mit Sekundenkleber am Draht sichern |
+| `G9_Radverkleidung_Bug_rechts` | 1 | LW-PLA | 106 · 48 · 20 | 2.5 | Bugrad-Verkleidung (optional); Achse Ø3 geht durch Gabel und Verkleidung |
+| `G9_Radverkleidung_Bug_links` | 1 | LW-PLA | 106 · 48 · 20 | 2.5 | Bugrad-Verkleidung (optional) |
 
 ## Streben
 
